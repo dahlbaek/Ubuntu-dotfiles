@@ -1,0 +1,49 @@
+snippet env "\begin{env} ... \end{env}" b
+\begin{${1:environment}}
+  \label{${2:labelname}}
+  ${3:body}
+\end{$1}
+${0}
+endsnippet
+
+snippet env* "\begin{env*} ... \end{env*}" bA
+\begin{${1:environment}*}
+  ${2:body}
+\end{$1*}
+${0}
+endsnippet
+
+snippet frame "\begin{frame} ... \end{frame}" b
+\subsection{${1:subsection}}
+\begin{frame}{\secname}{\subsecname}
+\end{frame}
+${0}
+endsnippet
+
+snippet _ "_{ ... }" iA
+_{${1}}
+endsnippet
+
+snippet ^ "^{ ... }" iA
+^{${1}}
+endsnippet
+
+snippet frac "\frac{ ... }{ ... }"
+\frac{${1}}{${2}}
+endsnippet
+
+snippet $ "\( ... \)" A
+\(${1}\)
+endsnippet
+
+snippet ( "( ... )" iA
+(${1})
+endsnippet
+
+snippet { "{ ... }" iA
+{${1}}
+endsnippet
+
+snippet [ "[ ... ]" iA
+[${1}]
+endsnippet
