@@ -20,3 +20,6 @@ cp -asfv "${DOTFILEDIR}/." "${HOME}"
 # Install plugins for vim and nvim
 vim -c "PlugUpdate" -c "qa"
 nvim -c "PlugUpdate" -c "qa"
+
+# Setup simple firewall rules
+sudo -k "${DOTFILEDIR}/bin/iptables.sh"
