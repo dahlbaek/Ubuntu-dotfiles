@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Determine path of dotfiledir
+DOTFILEDIR="$(cd "$(dirname "${0}")" && cd ./dotfiledir && pwd)"
+
+# Setup simple firewall rules
+sudo "${DOTFILEDIR}/bin/iptables.sh"
+
 # Install standard programs
 sudo apt-get update
 sudo apt-get install chromium-browser curl i3 neovim python3-pip r-base ranger texlive-full zathura
@@ -14,12 +20,8 @@ pip3 install --upgrade pip
 pip3 install neovim-remote
 
 # Recursively create symlinks to dotfiles
-DOTFILEDIR="$(cd "$(dirname "${0}")" && cd ./dotfiledir && pwd)"
 cp -asfv "${DOTFILEDIR}/." "${HOME}"
 
 # Install plugins for vim and nvim
 vim -c "PlugUpdate" -c "qa"
 nvim -c "PlugUpdate" -c "qa"
-
-# Setup simple firewall rules
-sudo -k "${DOTFILEDIR}/bin/iptables.sh"
