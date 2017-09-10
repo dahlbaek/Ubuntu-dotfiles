@@ -23,6 +23,16 @@ iptables -A INPUT -p udp --sport 123 -m conntrack --ctstate ESTABLISHED -j ACCEP
 iptables -A OUTPUT -p udp --dport 53 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 iptables -A INPUT -p udp --sport 53 -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
+## Allow imap
+iptables -A OUTPUT -p tcp --dport 993 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp --sport 993 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+## Allow smtp
+iptables -A OUTPUT -p tcp --dport 587 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp --sport 587 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+#iptables -A OUTPUT -p tcp --dport 25 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+#iptables -A INPUT -p tcp --sport 25 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
 ## Allow HTTP and HTTPS
 iptables -A OUTPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 iptables -A INPUT -p tcp -m multiport --sports 80,443 -m conntrack --ctstate ESTABLISHED -j ACCEPT

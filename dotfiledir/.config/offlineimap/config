@@ -1,0 +1,17 @@
+[general]
+accounts = Test
+
+[Account Test]
+localrepository = Local
+remoterepository = Remote
+
+[Repository Local]
+type = Maildir
+localfolders = ~/Mail
+
+[Repository Remote]
+type = IMAP
+remotehost = imaps.domain.com
+remoteuser = loginname
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-bundle.trust.crt
