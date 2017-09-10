@@ -1,3 +1,5 @@
 [user]
 	name = dahlbaek
 	email = 30782351+dahlbaek@users.noreply.github.com
+[push]
+	default = simple
