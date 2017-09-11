@@ -30,8 +30,6 @@ iptables -A INPUT -p tcp --sport 993 -m conntrack --ctstate ESTABLISHED -j ACCEP
 ## Allow smtp
 iptables -A OUTPUT -p tcp --dport 587 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 iptables -A INPUT -p tcp --sport 587 -m conntrack --ctstate ESTABLISHED -j ACCEPT
-#iptables -A OUTPUT -p tcp --dport 25 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
-#iptables -A INPUT -p tcp --sport 25 -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
 ## Allow HTTP and HTTPS
 iptables -A OUTPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
