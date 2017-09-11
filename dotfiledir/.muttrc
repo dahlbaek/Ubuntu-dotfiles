@@ -13,3 +13,5 @@ set postponed="+Kladder"
 set record="+Sendt\ post"
 unset mbox
 set spoolfile="+INBOX"
+
+set pager_context=5
