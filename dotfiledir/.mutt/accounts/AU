@@ -1,0 +1,11 @@
+# Source sensitives
+# set smtp_url="smtp://AUloginname@domain.com:587/"
+# set from="mail@AUdomain.com"
+source ~/.config/sensitive/muttAU
+
+set postponed="+AU/Kladder"
+set record="+AU/Sendt\ post"
+unset mbox
+set spoolfile="+AU/INBOX"
+
+set pager_context=5

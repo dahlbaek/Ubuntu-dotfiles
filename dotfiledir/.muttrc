@@ -1,17 +1,13 @@
-set mbox_type=Maildir
-
-# Source sensitives
-# set smtp_url="smtp://loginname@domain.com:587/"
-# set from="mail@domain.com"
-source ~/.config/sensitive/mutt.sens
-
-set use_from=yes
-set envelope_from=yes
-
+set mbox_type="Maildir"
 set folder="~/Mail"
-set postponed="+Kladder"
-set record="+Sendt\ post"
-unset mbox
-set spoolfile="+INBOX"
+set mailcap_path="~/.mutt/mailcap"
 
-set pager_context=5
+source ~/.mutt/accounts/AAU
+
+folder-hook '+AAU/*' 'source ~/.mutt/accounts/AAU'
+folder-hook '+AU/*' 'source ~/.mutt/accounts/AU'
+
+auto_view text/html
+alternative_order text/plain text/html
+
+set ssl_starttls=yes
