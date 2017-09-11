@@ -11,7 +11,8 @@ general {
   interval = "5"
 }
 
-order += "battery all"
+order += "battery 0"
+order += "battery 1"
 order += "wireless _first_"
 order += "ethernet _first_"
 order += "tztime local"
@@ -26,7 +27,21 @@ ethernet _first_ {
   format_down = "E: down"
 }
 
-battery all {
+battery 0 {
+  format = "%status %percentage %remaining"
+  format_down = "No battery"
+  status_chr = "Charging"
+  status_bat = "Battery"
+  # status_unk = "Unkown"
+  status_full = "Full"
+  low_threshold = "10"
+  threshold_type = "percentage"
+  hide_seconds = "true"
+  integer_battery_capacity = "true"
+  last_full_capacity = "true"
+}
+
+battery 1 {
   format = "%status %percentage %remaining"
   format_down = "No battery"
   status_chr = "Charging"
