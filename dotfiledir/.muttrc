@@ -1,4 +1,4 @@
-set mbox_type="Maildir"
+set mbox_type=Maildir
 
 # Source sensitives
 # set smtp_url="smtp://loginname@domain.com:587/"
@@ -9,4 +9,7 @@ set use_from=yes
 set envelope_from=yes
 
 set folder="~/Mail"
+set postponed="+Kladder"
+set record="+Sendt\ post"
+unset mbox
 set spoolfile="+INBOX"
