@@ -8,7 +8,7 @@ sudo "${DOTFILEDIR}/bin/iptables.sh"
 
 # Install standard programs
 sudo apt-get update
-sudo apt-get install chromium-browser curl i3 msmtp mutt neovim offlineimap python3-pip r-base ranger texlive-full zathura
+sudo apt-get install chromium-browser curl i3 lynx msmtp mutt neovim offlineimap python3-pip r-base ranger texlive-full zathura
 sudo -k
 
 # Install vim-plug for vim and nvim
