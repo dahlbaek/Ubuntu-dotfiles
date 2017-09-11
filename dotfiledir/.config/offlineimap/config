@@ -14,4 +14,4 @@ type = IMAP
 remotehost = imaps.domain.com
 remoteuser = loginname
 ssl = yes
-sslcacertfile = /etc/ssl/certs/ca-bundle.trust.crt
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
