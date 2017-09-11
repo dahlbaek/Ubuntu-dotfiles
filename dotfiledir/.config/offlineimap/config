@@ -1,7 +1,8 @@
 [general]
-accounts = Test
+accounts = AU
+pythonfile = ~/.config/sensitive/offlineimap.py
 
-[Account Test]
+[Account AU]
 localrepository = Local
 remoterepository = Remote
 
@@ -11,7 +12,10 @@ localfolders = ~/Mail
 
 [Repository Remote]
 type = IMAP
-remotehost = imaps.domain.com
-remoteuser = loginname
+# Collect sensitive data from the pythonfile
+# remotehost = host@domain.com
+# remoteuser = myloginname
+remotehosteval = myremotehost()
+remoteusereval = myremoteuser()
 ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
