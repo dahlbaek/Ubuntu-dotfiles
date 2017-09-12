@@ -13,7 +13,7 @@ sudo -k
 
 # Install vim-plug for vim and nvim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+cp -r ~/.vim/autoload/plug.vim ~/.local/share/nvim/site/autoload/plug.vim
 
 # Install nvr to enable reverse-search with vim-tex in nvim
 pip3 install --upgrade pip
