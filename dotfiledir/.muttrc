@@ -10,6 +10,4 @@ folder-hook '+AU/*' 'source ~/.mutt/accounts/AU'
 auto_view text/html
 alternative_order text/plain text/html
 
-set mark_old=no
-
 set ssl_starttls=yes
