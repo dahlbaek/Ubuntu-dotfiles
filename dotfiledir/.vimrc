@@ -68,7 +68,7 @@ let g:neocomplete#sources#omni#input_patterns.tex=g:vimtex#re#neocomplete
 
 " Configure UltiSnips
 let g:UltiSnipsEditSplit='horizontal' " Split horizontally
-let g:UltiSnipsSnippetDirectories=['~/.config/nvim/plugged/ultisnips/UltiSnips'] " Sets directory with snippets
+let g:UltiSnipsSnippetDirectories=['~/.config/nvim/plugged/UltiSnips'] " Sets directory with snippets
 
 " Configure vimtex
 let g:vimtex_view_method='zathura'
