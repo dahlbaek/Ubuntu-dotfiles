@@ -1,7 +1,8 @@
 # Source sensitives
 # set smtp_url="smtp://AAUloginname@domain.com:587/"
+# set smtp_pass="myAAUpass"
 # set from="mail@AAUdomain.com"
-source ~/.config/sensitive/muttAAU
+source "gpg2 --decrypt ~/.config/sensitive/smtp/AAU.gpg |"
 
 set postponed="+AAU/Kladder"
 set record="+AAU/Sendt\ post"

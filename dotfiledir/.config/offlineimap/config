@@ -1,7 +1,7 @@
 [general]
 ui = ttyui
 accounts = AU,AAU
-pythonfile = ~/.config/sensitive/offlineimap.py
+pythonfile = ~/.config/offlineimap/offlineimap.py
 
 [Account AU]
 localrepository = AU-Local
@@ -24,8 +24,10 @@ type = IMAP
 # Collect sensitive data from the pythonfile
 # remotehost = AUdomain.com
 # remoteuser = myAUloginname
-remotehosteval = AUremotehost()
-remoteusereval = myAUremoteuser()
+# remotepass = myAUpass
+remotehosteval = remote("AUhost")
+remoteusereval = remote("AUuser")
+remotepasseval = remote("AUpass")
 ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 folderfilter = lambda folder: folder in ['INBOX', 'Kladder', 'Sendt post']
@@ -35,8 +37,9 @@ type = IMAP
 # Collect sensitive data from the pythonfile
 # remotehost = AAUdomain.com
 # remoteuser = myAAUloginname
-remotehosteval = AAUremotehost()
-remoteusereval = myAAUremoteuser()
+remotehosteval = remote("AAUhost")
+remoteusereval = remote("AAUuser")
+remotepasseval = remote("AAUpass")
 ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 folderfilter = lambda folder: folder in ['INBOX', 'Kladder', 'Sendt post']
