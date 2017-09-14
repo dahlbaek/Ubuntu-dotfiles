@@ -9,9 +9,6 @@ set spoolfile="+AAU/INBOX"
 folder-hook '+AAU/*' 'source ~/.mutt/accounts/AAU'
 folder-hook '+AU/*' 'source ~/.mutt/accounts/AU'
 
-auto_view text/html
-alternative_order text/plain text/html
-
 set ssl_starttls=yes
 
 set pgp_use_gpg_agent=yes
