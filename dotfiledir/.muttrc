@@ -7,7 +7,7 @@ auto_view text/html
 alternative_order text/plain text/html
 
 set sort="threads"
-set sort_aux="last-date-received"
+set sort_aux="reverse-last-date-received"
 
 set timeout="5"
 
