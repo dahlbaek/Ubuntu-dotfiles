@@ -6,14 +6,10 @@ pythonfile = ~/.config/offlineimap/offlineimap.py
 [Account AU]
 localrepository = AU-Local
 remoterepository = AU-Remote
-autorefresh = 2
-quick = 9
 
 [Account AAU]
 localrepository = AAU-Local
 remoterepository = AAU-Remote
-autorefresh = 2
-quick = 9
 
 [Repository AU-Local]
 type = Maildir
