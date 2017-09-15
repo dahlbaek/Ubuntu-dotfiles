@@ -5,11 +5,6 @@ set mailcap_path="~/.mutt/mailcap"
 auto_view text/html
 alternative_order text/plain text/html
 
-set spoolfile="+AAU/INBOX"
 folder-hook '+AAU/*' 'source ~/.mutt/accounts/AAU'
 folder-hook '+AU/*' 'source ~/.mutt/accounts/AU'
-
-set ssl_starttls=yes
-
-set pgp_use_gpg_agent=yes
-set pgp_timeout=600
+set spoolfile="+AAU/INBOX"
