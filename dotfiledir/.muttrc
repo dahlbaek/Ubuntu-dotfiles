@@ -1,9 +1,15 @@
 set mbox_type="Maildir"
 set folder="~/Mail"
 set mailcap_path="~/.mutt/mailcap"
+mailboxes +AAU/INBOX +AU/INBOX
 
 auto_view text/html
 alternative_order text/plain text/html
+
+set sort="threads"
+set sort_aux="last-date-received"
+
+set timeout="5"
 
 folder-hook '+AAU/*' 'source ~/.mutt/accounts/AAU'
 folder-hook '+AU/*' 'source ~/.mutt/accounts/AU'
