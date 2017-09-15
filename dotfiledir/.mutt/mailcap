@@ -1,5 +1,8 @@
 application/pdf;zathura '%s'; test=test -n "$DISPLAY"
+
 image/png;eog '%s'; test=test -n "$DISPLAY"
 image/jpeg;eog '%s'; test=test -n "$DISPLAY"
+
+application/vnd.openxmlformats-officedocument.wordprocessingml.document;libreoffice '%s'; test=test -n "$DISPLAY"
 
 text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -dump %s; nametemplate=%s.html; copiousoutput
