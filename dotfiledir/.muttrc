@@ -1,7 +1,7 @@
 set mbox_type="Maildir"
 set folder="~/Mail"
 set mailcap_path="~/.mutt/mailcap"
-mailboxes +AAU/INBOX +AU/INBOX
+mailboxes `printf '%s\n' ~/Mail/*/* | sed s/' '/'\\ '/ | tr '\n' ' '`
 
 auto_view text/html
 alternative_order text/plain text/html
@@ -14,3 +14,11 @@ set timeout="5"
 folder-hook '+AAU/*' 'source ~/.mutt/accounts/AAU'
 folder-hook '+AU/*' 'source ~/.mutt/accounts/AU'
 set spoolfile="+AAU/INBOX"
+
+set sidebar_visible=yes
+set sidebar_width=25
+set sidebar_delim_chars='/'
+
+bind index,pager \Cp sidebar-prev
+bind index,pager \Cn sidebar-next
+bind index,pager \Co sidebar-open
