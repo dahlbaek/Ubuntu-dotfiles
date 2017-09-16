@@ -25,6 +25,7 @@ nnoremap <silent> <C-L> :nohlsearch<Bar>call sneak#cancel()<Bar>diffupdate<CR><C
 set scrolloff=1
 inoremap <C-U> <C-G>u<C-U>
 noremap <Space> :
+tnoremap <Esc> <C-\><C-N>
 
 " Tell vim-plug which packages to load
 call plug#begin()
@@ -35,6 +36,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex'
 Plug 'jalvesaq/Nvim-R'
+Plug 'hkupty/iron.nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 
 " Configure vim-plug
