@@ -36,7 +36,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex'
 Plug 'jalvesaq/Nvim-R'
-Plug 'hkupty/iron.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'dahlbaek/iron.nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 
 " Configure vim-plug
