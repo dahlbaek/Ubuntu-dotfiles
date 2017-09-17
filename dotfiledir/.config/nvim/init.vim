@@ -87,3 +87,6 @@ nmap czd <plug>(vimtex-delim-change-math)
 nmap tzc <plug>(vimtex-cmd-toggle-star)
 nmap tze <plug>(vimtex-env-toggle-star)
 nmap tzd <plug>(vimtex-delim-toggle-modifier)
+
+" Configure iron.nvim
+let g:iron_repl_open_cmd="vsplit"
