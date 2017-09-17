@@ -45,3 +45,6 @@ fi
 
 # Disable XOFF and XON, which hang/unhang the terminal on C-s and C-q
 stty -ixon
+
+# Set umask more restrictively
+umask 0077
