@@ -32,5 +32,5 @@ with open(os.path.expanduser('~/.config/offlineimap/AAU.log'),'w') as AAUlog, op
     imap_thread.start()
     subprocess.call('mutt')
     mutt_has_closed = True
-    print('Synchronizing mailbox. This may take a while.')
+    print('Synchronizing mailboxes. This may take a while.')
     imap_thread.join()
