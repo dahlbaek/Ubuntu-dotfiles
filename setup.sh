@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Determine path of dotfiledir
-DOTFILEDIR="$(cd "$(dirname "${0}")" && cd ./dotfiledir && pwd)"
+SCRIPTDIR="$(cd "$(dirname "${0}")" && pwd)"
+DOTFILEDIR="${SCRIPTDIR}/dotfiledir"
 
 # Setup simple firewall rules
 sudo "${DOTFILEDIR}/bin/iptables.sh"
@@ -25,3 +26,6 @@ cp -asfv "${DOTFILEDIR}/." "${HOME}"
 # Install plugins for vim and nvim
 vim -c "PlugUpdate" -c "qa"
 nvim -c "PlugUpdate" -c "qa"
+
+# Set restrictive permissions
+find "${SCRIPTDIR}" -not -xtype l -exec chmod go-rwx '{}' \;
