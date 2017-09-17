@@ -10,6 +10,7 @@ set shiftwidth=2 " Set tab width
 set softtabstop=2 " Set tab to produce 2 spaces
 set breakindent " Indent on word wrap
 set linebreak " Only wrap at character in breakat option
+set splitright
 
 " Set background color for line numbers, and set font color for line numbers
 highlight LineNr ctermbg=DarkGrey 
