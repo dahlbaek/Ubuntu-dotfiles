@@ -13,6 +13,7 @@ set sort="threads"
 set sort_aux="reverse-last-date-received"
 
 set timeout="5"
+set sleep_time="0"
 
 folder-hook '+AAU/*' 'source ~/.mutt/accounts/AAU'
 folder-hook '+AU/*' 'source ~/.mutt/accounts/AU'
