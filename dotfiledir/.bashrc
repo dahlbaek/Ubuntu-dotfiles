@@ -48,3 +48,7 @@ stty -ixon
 
 # Set umask more restrictively
 umask 0077
+
+# Recommended setting for gpg-agent
+GPG_TTY=$(tty)
+export GPG_TTY
