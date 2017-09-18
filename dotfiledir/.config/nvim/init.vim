@@ -37,7 +37,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex'
 Plug 'jalvesaq/Nvim-R'
-Plug 'dahlbaek/iron.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'dahlbaek/iron.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'hkupty/iron.nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 
 " Configure vim-plug
@@ -91,3 +92,7 @@ nmap tzd <plug>(vimtex-delim-toggle-modifier)
 
 " Configure iron.nvim
 let g:iron_repl_open_cmd="vsplit"
+
+" Configure Python
+" let g:python_host_prog  = '/usb/bin/python'
+" let g:python3_host_prog = '/path/bin/python3'
