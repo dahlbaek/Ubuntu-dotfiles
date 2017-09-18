@@ -17,8 +17,10 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 cp -r ~/.vim/autoload/plug.vim ~/.local/share/nvim/site/autoload/plug.vim
 
 # Install nvr to enable reverse-search with vim-tex in nvim
+pip install --upgrade pip
 pip3 install --upgrade pip
-pip3 install --user neovim-remote
+pip install --user neovim neovim-remote
+pip3 install --user neovim neovim-remote
 
 # Recursively create symlinks to dotfiles
 cp -asfv "${DOTFILEDIR}/." "${HOME}"
