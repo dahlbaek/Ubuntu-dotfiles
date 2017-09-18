@@ -94,5 +94,5 @@ nmap tzd <plug>(vimtex-delim-toggle-modifier)
 let g:iron_repl_open_cmd="vsplit"
 
 " Configure Python
-" let g:python_host_prog  = '/usb/bin/python'
-" let g:python3_host_prog = '/path/bin/python3'
+let g:python_host_prog='/usr/bin/python'
+let g:python3_host_prog='/usr/bin/python3'
