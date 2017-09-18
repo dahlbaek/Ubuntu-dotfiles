@@ -1,8 +1,8 @@
-application/pdf;zathura '%s'; test=test -n "$DISPLAY"
+application/pdf;zathura %s;
 
-image/png;eog '%s'; test=test -n "$DISPLAY"
-image/jpeg;eog '%s'; test=test -n "$DISPLAY"
+image/png;eog %s;
+image/jpeg;eog %s;
 
-application/vnd.openxmlformats-officedocument.wordprocessingml.document;libreoffice '%s'; test=test -n "$DISPLAY"
+application/vnd.openxmlformats-officedocument.wordprocessingml.document;libreoffice %s;
 
-text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -dump %s; nametemplate=%s.html; copiousoutput
+text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -width=1024 -force_html -cfg="~/.lynxrc" -dump %s; copiousoutput
