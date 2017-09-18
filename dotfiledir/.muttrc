@@ -1,6 +1,9 @@
 set mbox_type="Maildir"
 set folder="~/Mail"
 set mailcap_path="~/.mutt/mailcap"
+set alias_file="~/.mutt/aliases"
+source ${alias_file}
+
 mailboxes `printf '%s\n' ~/Mail/*/* | sed s/' '/'\\ '/ | tr '\n' ' '`
 
 auto_view text/html
