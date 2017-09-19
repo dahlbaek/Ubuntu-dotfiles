@@ -14,6 +14,8 @@ set sort_aux="reverse-last-date-received"
 
 set timeout="5"
 set sleep_time="0"
+set wrap="120"
+set editor="nvim"
 
 folder-hook '+AAU/*' 'source ~/.mutt/accounts/AAU'
 folder-hook '+AU/*' 'source ~/.mutt/accounts/AU'
