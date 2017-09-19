@@ -17,6 +17,14 @@ export VISUAL="${EDITOR}"
 # Clear up prompt
 PS1="$ "
 
+# enable color support of ls and grep
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+
+    alias grep='grep --color=auto'
+fi
+
 # enable bash completion in interactive shells
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
