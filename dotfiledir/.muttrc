@@ -3,6 +3,7 @@ set folder="~/Mail"
 set mailcap_path="~/.mutt/mailcap"
 set alias_file="~/.mutt/aliases"
 source ${alias_file}
+source ~/.mutt/macros
 
 mailboxes `printf '%s\n' ~/Mail/*/* | sed s/' '/'\\ '/ | tr '\n' ' '`
 
