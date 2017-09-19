@@ -8,6 +8,9 @@ bindsym $mod+End exec i3lock -c 000000
 # Start ranger
 bindsym $mod+m exec gnome-terminal -e "ranger"
 
+# Start mutt
+bindsym $mod+i exec gnome-terminal --working-directory=Downloads -e "runmutt.py"
+
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
