@@ -23,7 +23,7 @@ def autosync():
                 offlineimap()
                 break
 
-wait_time = 150 # Seconds to wait between syncs
+wait_time = 300 # Seconds to wait between syncs
 mutt_has_closed = False
 imap_thread = threading.Thread(target=autosync)
 
