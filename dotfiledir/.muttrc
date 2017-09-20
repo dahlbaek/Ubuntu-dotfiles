@@ -14,17 +14,22 @@ set sort="threads"
 set sort_aux="reverse-last-date-received"
 
 set timeout="5"
+set abort_unmodified="ask-yes"
+set fast_reply="yes"
+set forward_format="Fwd: %s"
+set resolve="no"
 set sleep_time="0"
+set timeout="5"
+set wait_key="no"
 set wrap="120"
-set editor="nvim"
 
 folder-hook '+AAU/*' 'source ~/.mutt/accounts/AAU'
 folder-hook '+AU/*' 'source ~/.mutt/accounts/AU'
 set spoolfile="+AAU/INBOX"
 
+set sidebar_delim_chars='/'
 set sidebar_visible=yes
 set sidebar_width=25
-set sidebar_delim_chars='/'
 
 bind index,pager \Cp sidebar-prev
 bind index,pager \Cn sidebar-next
