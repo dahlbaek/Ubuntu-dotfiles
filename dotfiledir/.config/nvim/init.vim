@@ -20,6 +20,8 @@ highlight LineNr ctermfg=Grey
 noremap x "_d
 noremap X "_D
 nnoremap xx "_dd
+noremap c "_c
+noremap C "_C
 
 " Sensible settings
 nnoremap <silent> <C-L> :nohlsearch<Bar>call sneak#cancel()<Bar>diffupdate<CR><C-L>
@@ -96,3 +98,10 @@ let g:iron_repl_open_cmd="vsplit"
 " Configure Python
 let g:python_host_prog='/usr/bin/python'
 let g:python3_host_prog='/usr/bin/python3'
+let g:iron_map_defaults=0
+augroup ironmapping
+autocmd!
+  autocmd Filetype python nmap <buffer> <localleader>t <Plug>(iron-send-motion)
+  autocmd Filetype python vmap <buffer> <localleader>t <Plug>(iron-send-motion)
+  autocmd Filetype python nmap <buffer> <localleader>p <Plug>(iron-repeat-cmd)
+augroup END
