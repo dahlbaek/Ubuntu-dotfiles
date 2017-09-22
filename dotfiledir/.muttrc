@@ -1,8 +1,8 @@
 set mbox_type="Maildir"
 set folder="~/Mail"
 set mailcap_path="~/.mutt/mailcap"
-set alias_file="~/.mutt/aliases"
-source ${alias_file}
+set alias_file="~/.config/sensitive/mail/aliases.gpg"
+source "gpg2 --decrypt ${alias_file} |"
 source ~/.mutt/macros
 
 mailboxes `printf '%s\n' ~/Mail/*/* | sed s/' '/'\\ '/ | tr '\n' ' '`
