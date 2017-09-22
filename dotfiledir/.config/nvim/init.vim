@@ -6,11 +6,18 @@ set background=dark " When using a dark background for editing
 set number " Show line numbers
 set relativenumber " Show relative numbers
 set expandtab " Convert tabs to spaces
-set shiftwidth=2 " Set tab width
-set softtabstop=2 " Set tab to produce 2 spaces
+set shiftwidth=4 " Set tab width
+set softtabstop=4 " Set tab to produce 2 spaces
 set breakindent " Indent on word wrap
 set linebreak " Only wrap at character in breakat option
-set splitright
+set splitright " When splitting with vs, put new window on right side
+set textwidth=79 " Set textwidth for use with gq
+
+" Do not hard wrap
+set formatoptions-=t formatoptions-=c
+
+" Do not insert comment leaders automatically
+set formatoptions-=r formatoptions-=o 
 
 " Set background color for line numbers, and set font color for line numbers
 highlight LineNr ctermbg=DarkGrey 
@@ -22,6 +29,7 @@ noremap X "_D
 nnoremap xx "_dd
 noremap c "_c
 noremap C "_C
+nnoremap cc "_ddi
 
 " Sensible settings
 nnoremap <silent> <C-L> :nohlsearch<Bar>call sneak#cancel()<Bar>diffupdate<CR><C-L>
@@ -69,7 +77,7 @@ omap S <Plug>Sneak_S
 let g:deoplete#enable_at_startup=1 " Enables deoplete
 " Configure deoplete to work with vimtex
 if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns={}
+    let g:deoplete#omni#input_patterns={}
 endif
 let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 
@@ -100,8 +108,8 @@ let g:python_host_prog='/usr/bin/python'
 let g:python3_host_prog='/usr/bin/python3'
 let g:iron_map_defaults=0
 augroup ironmapping
-autocmd!
-  autocmd Filetype python nmap <buffer> <localleader>t <Plug>(iron-send-motion)
-  autocmd Filetype python vmap <buffer> <localleader>t <Plug>(iron-send-motion)
-  autocmd Filetype python nmap <buffer> <localleader>p <Plug>(iron-repeat-cmd)
+    autocmd!
+    autocmd Filetype python nmap <buffer> <localleader>t <Plug>(iron-send-motion)
+    autocmd Filetype python vmap <buffer> <localleader>t <Plug>(iron-send-motion)
+    autocmd Filetype python nmap <buffer> <localleader>p <Plug>(iron-repeat-cmd)
 augroup END
