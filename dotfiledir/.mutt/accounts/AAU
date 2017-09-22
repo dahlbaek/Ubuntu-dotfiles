@@ -4,6 +4,7 @@ source "gpg2 --decrypt ~/.config/sensitive/mail/AAUmail.gpg |"
 set spoolfile="+AAU/INBOX"
 set postponed="+AAU/Kladder"
 set record="+AAU/Sendt\ post"
+set signature="~/.mutt/AAUsignature"
 unset mbox
 
 set pager_context=5

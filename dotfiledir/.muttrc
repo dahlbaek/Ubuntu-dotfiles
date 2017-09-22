@@ -10,14 +10,15 @@ mailboxes `printf '%s\n' ~/Mail/*/* | sed s/' '/'\\ '/ | tr '\n' ' '`
 auto_view text/html
 alternative_order text/plain text/html
 
-set sort="threads"
-set sort_aux="reverse-last-date-received"
+set sort="reverse-threads"
+set sort_aux="last-date-received"
 
 set timeout="5"
 set abort_unmodified="ask-yes"
 set fast_reply="yes"
 set forward_format="Fwd: %s"
 set resolve="no"
+set sig_on_top="yes"
 set sleep_time="0"
 set timeout="5"
 set wait_key="no"
