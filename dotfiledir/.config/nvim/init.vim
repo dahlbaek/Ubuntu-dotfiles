@@ -36,7 +36,8 @@ nnoremap <silent> <C-L> :nohlsearch<Bar>call sneak#cancel()<Bar>diffupdate<CR><C
 set scrolloff=1
 inoremap <C-U> <C-G>u<C-U>
 noremap <Space> :
-tnoremap <Esc> <C-\><C-N>
+tnoremap <Esc> <C-\><C-N>G<C-W>p
+:au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 
 " Tell vim-plug which packages to load
 call plug#begin()
@@ -44,10 +45,11 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-sneak'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'davidhalter/jedi'
+Plug 'zchee/deoplete-jedi'
 Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex'
 Plug 'jalvesaq/Nvim-R'
-"Plug 'dahlbaek/iron.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'hkupty/iron.nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 
@@ -109,7 +111,8 @@ let g:python3_host_prog='/usr/bin/python3'
 let g:iron_map_defaults=0
 augroup ironmapping
     autocmd!
-    autocmd Filetype python nmap <buffer> <localleader>t <Plug>(iron-send-motion)
-    autocmd Filetype python vmap <buffer> <localleader>t <Plug>(iron-send-motion)
+    autocmd Filetype python nmap <buffer> <localleader>r :IronRepl<CR><Esc>
+    autocmd Filetype python nmap <buffer> <localleader>s <Plug>(iron-send-motion)
+    autocmd Filetype python vmap <buffer> <localleader>s <Plug>(iron-send-motion)
     autocmd Filetype python nmap <buffer> <localleader>p <Plug>(iron-repeat-cmd)
 augroup END
