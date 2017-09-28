@@ -36,8 +36,9 @@ nnoremap <silent> <C-L> :nohlsearch<Bar>call sneak#cancel()<Bar>diffupdate<CR><C
 set scrolloff=1
 inoremap <C-U> <C-G>u<C-U>
 noremap <Space> :
-tnoremap <Esc> <C-\><C-N>G<C-W>p
-:au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+tnoremap <Esc> <C-\><C-N>
+tnoremap <C-W>p <C-\><C-N>G<C-W>p 
+" :au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 
 " Tell vim-plug which packages to load
 call plug#begin()
@@ -111,7 +112,7 @@ let g:python3_host_prog='/usr/bin/python3'
 let g:iron_map_defaults=0
 augroup ironmapping
     autocmd!
-    autocmd Filetype python nmap <buffer> <localleader>r :IronRepl<CR><Esc>
+    autocmd Filetype python nmap <buffer> <localleader>r :IronRepl<CR><C-\><C-N>:vertical resize 88<CR>G<C-W>p
     autocmd Filetype python nmap <buffer> <localleader>s <Plug>(iron-send-motion)
     autocmd Filetype python vmap <buffer> <localleader>s <Plug>(iron-send-motion)
     autocmd Filetype python nmap <buffer> <localleader>p <Plug>(iron-repeat-cmd)
