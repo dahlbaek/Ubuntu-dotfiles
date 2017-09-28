@@ -4,5 +4,6 @@ image/png; mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; eog /tmp/mutt/"$(basename %s
 image/jpeg; mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; eog /tmp/mutt/"$(basename %s)" &;
 
 application/vnd.openxmlformats-officedocument.wordprocessingml.document; mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; libreoffice /tmp/mutt/"$(basename %s)" &;
+application/vnd.ms-excel; mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; libreoffice /tmp/mutt/"$(basename %s)" &;
 
 text/html; lynx -assume_charset=%{charset} -cfg="~/.lynxrc" -display_charset=utf-8 -dump -force_html -nolist -nonumbers -width=1024 %s; copiousoutput
