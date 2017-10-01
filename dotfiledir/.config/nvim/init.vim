@@ -52,6 +52,7 @@ Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex'
 Plug 'jalvesaq/Nvim-R'
 Plug 'hkupty/iron.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Vimjas/vim-python-pep8-indent'
 call plug#end()
 
 " Configure vim-plug
