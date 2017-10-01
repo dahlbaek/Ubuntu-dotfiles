@@ -35,3 +35,4 @@ set sidebar_width=25
 bind index,pager \Cp sidebar-prev
 bind index,pager \Cn sidebar-next
 bind index,pager \Co sidebar-open
+# bind index,pager \Cs sidebar-toggle-visible
