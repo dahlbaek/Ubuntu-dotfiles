@@ -73,9 +73,10 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 map f <Plug>Sneak_f
 map F <Plug>Sneak_F
-" Use s/S to sneak in operator pending mode
+" Use s/S to sneak in operator pending mode and S in visual
 omap s <Plug>Sneak_s
 omap S <Plug>Sneak_S
+xmap S <Plug>Sneak_S
 
 " Configure deoplete.
 let g:deoplete#enable_at_startup=1 " Enables deoplete
