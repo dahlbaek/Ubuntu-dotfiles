@@ -92,7 +92,7 @@ let g:UltiSnipsSnippetDirectories=['~/.config/nvim/UltiSnips'] " Sets directory 
 
 " Configure vimtex
 let g:vimtex_view_method='zathura'
-let g:vimtex_compiler_progname='~/.local/bin/nvr'
+let g:vimtex_compiler_progname='nvr'
 nmap dze <plug>(vimtex-env-delete)
 nmap dzc <plug>(vimtex-cmd-delete)
 nmap dz$ <plug>(vimtex-env-delete-math)
