@@ -1,20 +1,20 @@
-# My own startup additions
+# my own startup additions
 exec --no-startup-id synclient HorizScrollDelta=-113 VertScrollDelta=-113 HorizTwoFingerScroll=1 TapButton1=1 TapButton2=3
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
 
-# Launch i3lock with black background
+# launch i3lock with black background
 bindsym $mod+End exec i3lock -c 000000
 
-# Start ranger
+# start ranger
 bindsym $mod+m exec gnome-terminal -x bash -i -c "ranger"
 
-# Start mutt
+# start mutt
 bindsym $mod+i exec gnome-terminal --working-directory=Downloads -x bash -i -c "runmutt.py"
 
-# Start nvim
+# start nvim
 bindsym $mod+n exec gnome-terminal -x bash -i -c "nvim"
 
-# Pulse Audio controls
+# pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
