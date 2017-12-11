@@ -42,3 +42,5 @@ iptables -A OUTPUT -j LOG --log-prefix "OUTPUT:DROP:" --log-level 6
 
 ## Save rules
 iptables-save >/etc/iptables.conf
+
+## add 'iptables-restore < /etc/firewall.conf' to /etc/rc.local to reload rules after system boot
