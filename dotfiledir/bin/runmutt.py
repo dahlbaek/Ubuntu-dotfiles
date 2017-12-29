@@ -1,36 +1,43 @@
 #!/usr/bin/env python3
+"""Open Mutt and synchronize mailboxes."""
 
 import subprocess
 import threading
-import time
 import os
 
-# Sync accounts asynchronously, but wait for all syncs to finish
-def offlineimap():
-    AAU = subprocess.Popen(['offlineimap', '-a AAU'], stderr = AAUlog)
-    AU = subprocess.Popen(['offlineimap', '-a AU'], stderr = AUlog)
-    AAU.communicate()
-    AU.communicate()
+# seconds to wait between syncs
+WAIT_TIME = 60
 
-# Sync every wait_time seconds, and when mutt closes
-def autosync():
-    while not mutt_has_closed:
-        offlineimap()
-        for i in range(wait_time):
-            if not mutt_has_closed:
-                time.sleep(1)
-            else:
-                offlineimap()
-                break
+# sync accounts once asynchronously, and wait for all syncs to finish
+def offlineimap(aaulog, aulog):
+    """Synchronize accounts."""
+    aausync = subprocess.Popen(['offlineimap', '-a AAU'], stderr=aaulog)
+    ausync = subprocess.Popen(['offlineimap', '-a AU'], stderr=aulog)
+    aausync.communicate()
+    ausync.communicate()
 
-wait_time = 60 # Seconds to wait between syncs
-mutt_has_closed = False
-imap_thread = threading.Thread(target=autosync)
+# sync every wait_time seconds and once after mutt closes
+def autosync(mutt_has_closed, aaulog, aulog):
+    """Resynchronize every WAIT_TIME seconds."""
+    while not mutt_has_closed.is_set():
+        offlineimap(aaulog, aulog)
+        mutt_has_closed.wait(timeout=WAIT_TIME)
+    offlineimap(aaulog, aulog)
 
-# Open log files, start autosync, start mutt. When Mutt closes, wait for autosync to finish.
-with open(os.path.expanduser('~/.config/offlineimap/AAU.log'),'w') as AAUlog, open(os.path.expanduser('~/.config/offlineimap/AU.log'),'w') as AUlog:
-    imap_thread.start()
-    subprocess.call('mutt')
-    mutt_has_closed = True
-    print('Synchronizing mailboxes. This may take a while.')
-    imap_thread.join()
+def main():
+    """Open Mutt and synchronize mail."""
+    # prepare thread
+    aaulogfile = os.path.expanduser('~/.config/offlineimap/AAU.log')
+    aulogfile = os.path.expanduser('~/.config/offlineimap/AU.log')
+    mutt_has_closed = threading.Event()
+    with open(aaulogfile, 'w') as aaulog, open(aulogfile, 'w') as aulog:
+        imap_thread = threading.Thread(target=autosync, args=(mutt_has_closed, aaulog, aulog,))
+        # open log files, start thread, start mutt. When Mutt closes, kill thread gracefully.
+        imap_thread.start()
+        subprocess.call('mutt')
+        mutt_has_closed.set()
+        print('Synchronizing mailboxes. This may take a while.')
+        imap_thread.join()
+
+if __name__ == "__main__":
+    main()
