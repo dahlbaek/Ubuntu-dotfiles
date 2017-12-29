@@ -126,6 +126,8 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+let g:syntastic_c_compiler_options = '-std=c99'
+let g:syntastic_c_config_file = '~/.config/nvim/syntastic_c_config_file'
 let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_python_pylint_exec = 'pylint3'
 let g:syntastic_always_populate_loc_list = 1
