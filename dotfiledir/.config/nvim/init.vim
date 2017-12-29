@@ -42,17 +42,18 @@ tnoremap <C-W>p <C-\><C-N>G<C-W>p
 
 " Tell vim-plug which packages to load
 call plug#begin()
+Plug 'davidhalter/jedi'
+Plug 'hkupty/iron.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'jalvesaq/Nvim-R'
+Plug 'justinmk/vim-sneak'
+Plug 'lervag/vimtex'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'justinmk/vim-sneak'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'davidhalter/jedi'
-Plug 'zchee/deoplete-jedi'
-Plug 'SirVer/ultisnips'
-Plug 'lervag/vimtex'
-Plug 'jalvesaq/Nvim-R'
-Plug 'hkupty/iron.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'vim-syntastic/syntastic'
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'zchee/deoplete-jedi'
 call plug#end()
 
 " Configure vim-plug
@@ -119,3 +120,15 @@ augroup ironmapping
     autocmd Filetype python vmap <buffer> <localleader>s <Plug>(iron-send-motion)
     autocmd Filetype python nmap <buffer> <localleader>p <Plug>(iron-repeat-cmd)
 augroup END
+
+" Configure vim-syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_python_pylint_exec = 'pylint3'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
