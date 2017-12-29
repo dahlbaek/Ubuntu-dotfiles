@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -euf -o pipefail
+IFS=$'\n'
+
 # Determine path of dotfiledir
 SCRIPTDIR="$(cd "$(dirname "${0}")" && pwd)"
 DOTFILEDIR="${SCRIPTDIR}/dotfiledir"
@@ -9,7 +12,7 @@ sudo "${DOTFILEDIR}/bin/iptables.sh"
 
 # Install standard programs
 sudo apt-get update
-sudo apt-get install chromium-browser curl gnupg2 i3 ipython3 lynx msmtp mutt neovim offlineimap pdfgrep postgres-client postgresql postgresql-contrib python3-pandas python3-pip r-base ranger texlive-full urlscan wine xdotool zathura
+sudo apt-get install chromium-browser curl gnupg2 i3 ipython3 lynx msmtp mutt neovim offlineimap pdfgrep postgresql-client postgresql postgresql-contrib python3-pip r-base ranger texlive-full urlscan wine xdotool zathura
 sudo -k
 
 # Install vim-plug for nvim
@@ -20,10 +23,10 @@ pip3 install --upgrade pip
 pip3 install --user neovim neovim-remote
 
 # Recursively create symlinks to dotfiles
-cp -asfv "${DOTFILEDIR}/." "${HOME}"
+cp -asfv "${DOTFILEDIR}/." "${HOME}" >setup.log
 
 # Install plugins for nvim
 nvim -c "PlugUpdate" -c "qa"
 
 # Set restrictive permissions
-find "${SCRIPTDIR}" -not -xtype l -exec chmod go-rwx '{}' \;
+find "${SCRIPTDIR}" -not -xtype l -exec chmod go-rwx {} +
