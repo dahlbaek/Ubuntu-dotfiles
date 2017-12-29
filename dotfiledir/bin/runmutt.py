@@ -27,10 +27,10 @@ def autosync(mutt_has_closed, aaulog, aulog):
 def main():
     """Open Mutt and synchronize mail."""
     # prepare thread
-    aaulogfile = os.path.expanduser('~/.config/offlineimap/AAU.log')
-    aulogfile = os.path.expanduser('~/.config/offlineimap/AU.log')
+    aaulog = os.path.expanduser('~/.config/offlineimap/AAU.log')
+    aulog = os.path.expanduser('~/.config/offlineimap/AU.log')
     mutt_has_closed = threading.Event()
-    with open(aaulogfile, 'w') as aaulog, open(aulogfile, 'w') as aulog:
+    with open(aaulog, 'w') as aaulog, open(aulog, 'w') as aulog:
         imap_thread = threading.Thread(target=autosync, args=(mutt_has_closed, aaulog, aulog,))
         # open log files, start thread, start mutt. When Mutt closes, kill thread gracefully.
         imap_thread.start()
