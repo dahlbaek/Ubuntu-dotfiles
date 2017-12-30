@@ -1,19 +1,17 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euf -o pipefail
-IFS=$'\n'
+set -euf
+IFS=''
 
-# Determine path of dotfiledir
-SCRIPTDIR="$(cd "$(dirname "${0}")" && pwd)"
-DOTFILEDIR="${SCRIPTDIR}/dotfiledir"
+printf "\nTHIS SCRIPT DOES NOT REQUIRE ROOT PRIVILEGES. ABORT IF IT ASKS FOR THEM.\n\n"
+sleep 3
 
-# Setup simple firewall rules
-sudo "${DOTFILEDIR}/bin/iptables.sh"
+# set path variables
+SCRIPTDIR="${HOME}/git/dotfiles"
+DOTFILEDIR="${SCRIPTDIR}/home"
 
-# Install standard programs
-sudo apt-get update
-sudo apt-get install chromium-browser curl gnupg2 i3 ipython3 lynx msmtp mutt neovim offlineimap pdfgrep postgresql-client postgresql postgresql-contrib python3-pip r-base ranger texlive-full urlscan wine xdotool zathura
-sudo -k
+# Set simple firewall rules
+sudo /bin/sh /usr/bin/iptables.sh
 
 # Install vim-plug for nvim
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

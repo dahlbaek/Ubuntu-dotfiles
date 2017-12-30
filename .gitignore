@@ -1,4 +1,4 @@
 setup.log
-dotfiledir/.config/ranger/history
-dotfiledir/.config/ranger/tagged
-dotfiledir/.config/sensitive
+home/.config/ranger/history
+home/.config/ranger/tagged
+home/.config/sensitive

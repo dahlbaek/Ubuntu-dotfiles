@@ -1,7 +1,5 @@
-#!/bin/bash
-
-set -euf -o pipefail
-IFS=$'\n'
+set -euf
+IFS=''
 
 ## Clear iptables
 iptables -F

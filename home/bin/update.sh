@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euf -o pipefail
-IFS=$'\n'
+set -euf
+IFS=''
 
 sudo apt-get update
 sudo apt-get upgrade

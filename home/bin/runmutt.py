@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Open Mutt and synchronize mailboxes."""
-
 import subprocess
 import threading
 import os
