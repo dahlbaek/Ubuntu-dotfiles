@@ -69,7 +69,7 @@ root	ALL=(ALL:ALL) ALL
 
 ## setup
 
-The setup script `setup.sh` sources the `iptables` file, installs vim-plug for
+The setup script `setup.sh` sources the `iptables.sh` file, installs vim-plug for
 nvim, installs nvr for vim-tex, puts symbolic links to the included config
 files, installs plugins for nvim and sets restrictive permissions for those
 files. Run the setup script with the command `"${HOME}/git/dotfiles/setup.sh"`.
