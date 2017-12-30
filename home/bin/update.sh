@@ -3,5 +3,5 @@
 set -euf
 IFS=''
 
-sudo apt-get update
-sudo apt-get upgrade
+sudo /usr/bin/apt-get update
+sudo /usr/bin/apt-get upgrade
