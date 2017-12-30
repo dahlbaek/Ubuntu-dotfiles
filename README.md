@@ -76,4 +76,6 @@ files. Run the setup script with the command `"${HOME}/git/dotfiles/setup.sh"`.
 Beware, however, that the setup script is destructive. Any config files that
 get in the way are lost.
 
-As noted in the file `iptables.sh`, if you want to preserve firewall rules between sessions (and you do), you need to add `iptables-restore < /etc/firewall.conf` to `/etc/rc.local`.
+As noted in the file `iptables.sh`, if you want to preserve firewall rules
+between sessions (and you do), you need to add `iptables-restore <
+/etc/firewall.conf` to `/etc/rc.local`.
