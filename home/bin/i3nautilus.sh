@@ -3,4 +3,4 @@
 set -euf
 IFS=''
 
-/usr/bin/nautilus --no-desktop
+/usr/bin/nautilus --no-desktop --
