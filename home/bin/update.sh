@@ -2,6 +2,7 @@
 
 set -euf
 IFS=''
+PATH=''
 
-sudo /usr/bin/apt-get update
-sudo /usr/bin/apt-get upgrade
+/usr/bin/sudo -- /usr/bin/apt-get update
+/usr/bin/sudo -- /usr/bin/apt-get upgrade
