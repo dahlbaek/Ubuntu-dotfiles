@@ -23,7 +23,7 @@ repository to `~/git/dotfiles`.
 Copy the `iptables.sh` script to a secure location, using the command
 
 ```
-sudo cp -- "${HOME}/git/dotfiles/home/.config/iptables/iptables.sh" /usr/local/bin/iptables.sh
+sudo cp "${HOME}/git/dotfiles/home/.config/iptables/iptables.sh" /usr/local/bin/iptables.sh
 ```
 
 You may need to create one or more directories first.
