@@ -32,42 +32,23 @@ You may need to create one or more directories first.
 
 Allow yourself to update, upgrade and set iptables rules without typing in a
 password. This can be done using the command `sudo visudo`, which is a safe way
-to edit the file `/etc/sudoers`. Here is a sample configuration, which is just
-the default with a few additions.
+to edit the file `/etc/sudoers`. I do not want the terminal to remember my
+password, which can be controlled with the `timestamp_timeout`. So, add the line
 
 ```
-#
-# This file MUST be edited with the 'visudo' command as root.
-#
-# Please consider adding local content in /etc/sudoers.d/ instead of
-# directly modifying this file.
-#
-# See the man page for details on how to write a sudoers file.
-#
-Defaults	env_reset
 Defaults	timestamp_timeout=0
-Defaults	mail_badpass
-Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+```
 
-# Host alias specification
+and change the line
 
-# User alias specification
+```
+%sudo	ALL=(ALL:ALL) ALL
+```
 
-# Cmnd alias specification
+to
 
-# User privilege specification
-root	ALL=(ALL:ALL) ALL
-
-# Members of the admin group may gain root privileges
-%admin	ALL=(ALL) ALL
-
-# Allow members of group sudo to execute any command
-%sudo	ALL=(ALL:ALL) ALL, NOPASSWD: /usr/bin/apt-get update, /usr/bin/apt-get upgrade, /bin/sh /usr/local/bin/iptables.sh
-
-# See sudoers(5) for more information on "#include" directives:
-
-#includedir /etc/sudoers.d
-
+```
+%sudo	ALL=(ALL:ALL) ALL, NOPASSWD: /usr/bin/apt-get -- update, /usr/bin/apt-get -- upgrade, /bin/sh -- /usr/local/bin/iptables.sh
 ```
 
 ## setup
