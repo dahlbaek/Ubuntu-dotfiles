@@ -2,6 +2,6 @@
 
 set -euf
 IFS=''
-PATH=''
+PATH='/usr/bin'
 
-/usr/bin/nautilus --no-desktop --
+nautilus --no-desktop --
