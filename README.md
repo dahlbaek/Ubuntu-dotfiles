@@ -5,10 +5,12 @@ some simple setup instructions for Ubuntu 16.04.
 
 ## standard programs
 
-In order to have my favourite programs available, run the command
+In order to have my favourite programs available, run the commands
 
 ```
+sudo apt-get update
 sudo apt-get install chromium-browser curl git gnupg2 i3 ipython3 lynx msmtp mutt neovim offlineimap pdfgrep postgresql-client postgresql postgresql-contrib python3-pip r-base ranger texlive-full urlscan wine xdotool zathura
+sudo apt-get upgrade
 ```
 
 ## clone the repository
@@ -18,12 +20,13 @@ repository to `~/git/dotfiles`.
 
 ## iptables
 
-Copy the `iptables.sh` script to a secure location, using the commands
+Copy the `iptables.sh` script to a secure location, using the command
 
 ```
-sudo cp "${HOME}/git/dotfiles/home/.config/iptables/iptables.sh" /usr/bin/iptables.sh
-sudo chmod go-rwx /usr/bin/iptables.sh
+sudo cp -- "${HOME}/git/dotfiles/home/.config/iptables/iptables.sh" /usr/local/bin/iptables.sh
 ```
+
+You may need to create one or more directories first.
 
 ## sudoers
 
@@ -59,7 +62,7 @@ root	ALL=(ALL:ALL) ALL
 %admin	ALL=(ALL) ALL
 
 # Allow members of group sudo to execute any command
-%sudo	ALL=(ALL:ALL) ALL, NOPASSWD: /usr/bin/apt-get update, /usr/bin/apt-get upgrade, /bin/sh /usr/bin/iptables.sh
+%sudo	ALL=(ALL:ALL) ALL, NOPASSWD: /usr/bin/apt-get update, /usr/bin/apt-get upgrade, /bin/sh /usr/local/bin/iptables.sh
 
 # See sudoers(5) for more information on "#include" directives:
 
