@@ -1,5 +1,6 @@
 set -euf
 IFS=''
+PATH='/sbin'
 
 ## Clear iptables
 iptables -F
