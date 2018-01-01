@@ -2,7 +2,7 @@
 
 set -euf
 IFS=''
-PATH=''
+PATH='/usr/bin'
 
-/usr/bin/sudo -- /usr/bin/apt-get -- update
-/usr/bin/sudo -- /usr/bin/apt-get -- upgrade
+sudo -- /usr/bin/apt-get -- update
+sudo -- /usr/bin/apt-get -- upgrade
