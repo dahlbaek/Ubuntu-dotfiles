@@ -10,7 +10,7 @@ SCRIPTDIR="${HOME}/git/dotfiles"
 DOTFILEDIR="${SCRIPTDIR}/home"
 
 # Set simple firewall rules
-sudo /bin/sh /usr/local/bin/iptables.sh
+sudo /bin/sh -- /usr/local/bin/iptables.sh
 
 # Install vim-plug for nvim
 curl --create-dirs --fail --output ~/.local/share/nvim/site/autoload/plug.vim --silent --show-error -- https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
