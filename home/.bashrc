@@ -1,6 +1,3 @@
-# check that HOME and USER are set correctly
-printf "Welcome back ${USER}. Currently working in directory ${HOME}.\n"
-
 # set PATH
 PATH="${HOME}/bin:${HOME}/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
@@ -42,7 +39,3 @@ umask 0077
 # recommended setting by gpg-agent
 GPG_TTY=$(tty)
 export GPG_TTY
-
-# check PATH
-printf "The following directories are in PATH:\n"
-printf "${PATH}\n\n" | tr ':' '\n'
