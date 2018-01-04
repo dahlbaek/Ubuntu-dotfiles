@@ -63,3 +63,14 @@ get in the way are lost.
 As noted in the file `iptables.sh`, if you want to preserve firewall rules
 between sessions (and you do), you need to add `iptables-restore <
 /etc/firewall.conf` to `/etc/rc.local`.
+
+## mutt
+
+Mutt is set up using msmtp to send mail, offlineimap to synchronize Maildirs
+and gpg2 to encrypt/decrypt usernames and passwords. Some of the dotfiles are
+not present in this repo. In particular: The config file `~/.msmtprc` for msmtp
+is not present, and the folder `~/.config/sensitive` (which holds encrypted
+files) is not present.
+
+Everything is glued together by a Python script `~/bin/runmutt.py`, which is
+bound to a key for easy access in the i3 config file `~/.config/i3/config`.
