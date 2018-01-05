@@ -1,6 +1,3 @@
-# set PATH
-PATH="${HOME}/bin:${HOME}/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-
 # source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
