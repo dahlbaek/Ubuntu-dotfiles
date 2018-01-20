@@ -8,11 +8,12 @@ source ~/.mutt/macros
 mailboxes `printf '%s\n' ~/Mail/*/* | sed s/' '/'\\ '/ | tr '\n' ' '`
 
 auto_view text/html
-alternative_order text/plain text/html
+alternative_order multipart/related text/plain text/html
 
 set sort="reverse-threads"
 set sort_aux="last-date-received"
 
+set date_format="%Y-%m-%dT%H:%M:%S%Z"
 set timeout="5"
 set abort_unmodified="ask-yes"
 set fast_reply="yes"
