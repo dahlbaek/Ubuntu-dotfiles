@@ -2,7 +2,7 @@
 # enable natural scroll and tap functionality for touchpad
 exec --no-startup-id synclient HorizScrollDelta=-113 VertScrollDelta=-113 HorizTwoFingerScroll=1 TapButton1=1 TapButton2=3
 # swap ctrl and caps
-exec --no-startup-id setxkbmap -option ctrl:swapcaps
+# exec --no-startup-id setxkbmap -option ctrl:swapcaps
 # never power off screen
 exec --no-startup-id xset s off
 exec --no-startup-id xset -dpms
