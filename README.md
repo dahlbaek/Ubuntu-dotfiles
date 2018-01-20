@@ -9,7 +9,7 @@ In order to have my favourite programs available, run the commands
 
 ```
 sudo apt-get update
-sudo apt-get install chromium-browser curl git gnupg2 i3 ipython3 lynx msmtp mutt neovim offlineimap pdfgrep postgresql-client postgresql postgresql-contrib python3-pip r-base ranger texlive-full urlscan wine xdotool zathura
+sudo apt-get install chromium-browser curl git gnupg2 html2text i3 ipython3 msmtp mutt neovim offlineimap pdfgrep postgresql-client postgresql postgresql-contrib python3-pip python3-venv r-base ranger texlive-full urlscan wine xdotool zathura
 sudo apt-get upgrade
 ```
 
