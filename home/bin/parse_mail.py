@@ -1,21 +1,18 @@
 #!/usr/bin/python3
 
 import email
-from email import policy
-import pypandoc
-import fileinput
+from email import charset, policy
 import subprocess
-from email import charset
+import sys
+import pypandoc
 
-# use 8bit encoded utf-8 when applicable
+# allow 8bit encoded utf-8
 charset.add_charset('utf-8', charset.SHORTEST, '8bit')
 
-# read email
-stdin_lines = []
-with fileinput.input(["-"]) as stdin:
-    msg = email.message_from_string("".join(list(stdin)), policy=policy.SMTP)
+# read mail from stdin
+msg = email.message_from_file(sys.stdin, policy=policy.SMTP)
 
-# determine conversion
+# determine if conversion should take place
 convert_simple = all([
     not msg.is_multipart(),
     msg.get_content_type() == "text/plain",
@@ -50,13 +47,21 @@ if convert:
     new_msg = email.message.EmailMessage(policy=policy.SMTP)
     for header in headers:
         if msg[header]:
-            new_msg[header] = msg[header]
+            new_msg[header] = msg[header].replace("\r\n\t", "")
     new_msg.add_header("MIME-Version", "1.0")
     # make plain and html parts
     text_plain = email.message.MIMEPart(policy=policy.SMTP)
-    text_plain.set_content(inline)
+    text_plain.set_content(
+        inline,
+        charset="utf-8",
+        cte="8bit"
+    )
     text_html = email.message.MIMEPart(policy=policy.SMTP)
-    text_html.set_content(pypandoc.convert_text(inline, "html", format="md"), subtype="html")
+    text_html.set_content(
+        pypandoc.convert_text(inline, "html", format="md"),
+        subtype="html",
+        charset="utf-8",
+        cte="8bit")
     # attach attachments
     if convert_simple:
         new_msg.make_alternative()
@@ -78,6 +83,7 @@ else:
     out_msg = msg
 
 # send
-subprocess.run(["/usr/bin/msmtp", "--read-recipients", "-a", "AAU"], input=out_msg.as_bytes())
+msmtp_args = ["/usr/bin/msmtp", "-a", "AAU"]
+msmtp_args.extend(sys.argv[1:])
+subprocess.run(msmtp_args, input=out_msg.as_bytes())
 #print(out_msg.as_string())
-
