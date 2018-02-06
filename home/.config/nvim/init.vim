@@ -11,7 +11,7 @@ set softtabstop=4 " Set tab to produce 2 spaces
 set breakindent " Indent on word wrap
 set linebreak " Only wrap at character in breakat option
 set splitright " When splitting with vs, put new window on right side
-set textwidth=79 " Set textwidth for use with gq
+set textwidth=72 " Set textwidth for use with gq
 
 " Do not hard wrap
 set formatoptions-=t formatoptions-=c
