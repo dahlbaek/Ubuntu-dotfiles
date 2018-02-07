@@ -7,4 +7,5 @@ application/vnd.openxmlformats-officedocument.wordprocessingml.document; mkdir -
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; libreoffice /tmp/mutt/"$(basename %s)" &;
 application/vnd.ms-excel; mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; libreoffice /tmp/mutt/"$(basename %s)" &;
 
-text/html; /usr/bin/html2text -style pretty -utf8 -width 100 %s; copiousoutput
+text/html; python3 ~/bin/h2t.py %s; copiousoutput
+#text/html; /usr/bin/html2text -style pretty -utf8 -width 100 %s; copiousoutput
