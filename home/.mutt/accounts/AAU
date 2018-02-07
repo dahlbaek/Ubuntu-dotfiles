@@ -1,4 +1,6 @@
-set sendmail="/usr/bin/msmtp -a AAU"
+#set sendmail="~/bin/my_send.py"
+#set sendmail="/usr/bin/msmtp -a AAU"
+set sendmail="~/bin/parse_mail.py"
 # set from="mymail@domain.com"
 source "gpg2 --decrypt ~/.config/sensitive/mail/AAUmail.gpg |"
 set spoolfile="+AAU/INBOX"
