@@ -1,5 +1,5 @@
-" Do not hard wrap
-set formatoptions-=t formatoptions-=c
+" Hard wrap, but do not insert current comment leader
+set formatoptions+=t formatoptions+=a formatoptions-=c
 
 " Do not insert comment leaders automatically
 set formatoptions-=r formatoptions-=o 
