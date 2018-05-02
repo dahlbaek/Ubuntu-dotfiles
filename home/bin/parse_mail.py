@@ -1,7 +1,7 @@
-#!/usr/bin/python3
+#!/home/dahlbaek/virtualenvs/mail/bin/python
 """Convert text/plain to multipart/alternative."""
 
-from email import charset, message, message_from_file, policy
+from email import message, message_from_file, policy
 from subprocess import run
 from sys import argv, stdin
 from pypandoc import convert_text
@@ -9,35 +9,12 @@ from pypandoc import convert_text
 def main():
     """Run code."""
 
-    # allow 8bit encoded utf-8
-    charset.add_charset('utf-8', charset.SHORTEST, '8bit')
-
     # read mail from stdin
     msg = message_from_file(stdin, policy=policy.SMTP)
 
-    # determine if conversion should take place
-    convert_simple = all([
-        not msg.is_multipart(),
-        msg.get_content_type() == "text/plain",
-        msg.get_content_disposition() == "inline",
-    ])
-    convert_multi = all([
-        msg.get_content_type() == "multipart/mixed",
-        not any([part.is_multipart() for part in list(msg.walk())[1:]]),
-        len([part for part in msg.walk() if part.get_content_disposition() == "inline" and part.get_content_type() == "text/plain"]) == 1,
-    ])
-    convert = any([convert_simple, convert_multi])
-
-    if convert:
-        # extract attachments
-        attachments = []
-        for part in msg.walk():
-            if part.is_multipart():
-                continue
-            elif part.get_content_disposition() == "inline" and part.get_content_type() == "text/plain":
-                inline = part.get_payload()
-            else:
-                attachments.append(part)
+    # only convert if there is an inline text/plain part
+    if msg.get_body(preferencelist=("plain",)):
+        new_msg = message.MIMEPart(policy=policy.SMTP)
         # copy headers
         headers = [
             "Date",
@@ -46,49 +23,52 @@ def main():
             "CC",
             "Subject",
             "Message-ID",
+            "MIME-Version",
         ]
-        new_msg = message.EmailMessage(policy=policy.SMTP)
         for header in headers:
             if msg[header]:
-                new_msg[header] = msg[header].replace("\r\n\t", "")
-        new_msg.add_header("MIME-Version", "1.0")
-        # make plain and html parts
-        text_plain = message.MIMEPart(policy=policy.SMTP)
-        text_plain.set_content(
-            inline,
+                new_msg[header] = msg[header]
+        # make multipart/alternative
+        inline = msg.get_body(preferencelist=("plain",))
+        new_msg.add_alternative(
+            inline.get_content(),
             charset="utf-8",
-            cte="8bit"
+            cte="base64"
         )
-        text_html = message.MIMEPart(policy=policy.SMTP)
-        text_html.set_content(
-            convert_text(inline, "html", format="md"),
+        new_msg.add_alternative(
+            convert_text(inline.get_content(), "html", format="md"),
             subtype="html",
             charset="utf-8",
-            cte="8bit")
-        # attach attachments
-        if convert_simple:
-            new_msg.make_alternative()
-            new_msg.attach(text_plain)
-            new_msg.attach(text_html)
-        elif convert_multi:
-            new_msg.make_mixed()
-            alternative = message.EmailMessage(policy=policy.SMTP)
-            alternative.add_header("MIME-Version", "1.0")
-            alternative.make_alternative()
-            alternative.add_header("Content-Disposition", "inline")
-            alternative.attach(text_plain)
-            alternative.attach(text_html)
-            new_msg.attach(alternative)
-            for part in attachments:
-                new_msg.attach(part)
-        out_msg = new_msg
+            cte="base64"
+        )
+        # set multipart/alternative as inline
+        new_msg["Content-Disposition"] = "inline"
+        # append attachments
+        for attachment in msg.iter_attachments():
+            kwargs = {
+                "maintype": attachment.get_content_maintype(),
+                "subtype": attachment.get_content_subtype(),
+                "disposition": attachment.get_content_disposition(),
+                "filename": attachment.get_filename()
+            }
+            # assume attachment is text, otherwise assume attachment is base64 encoded
+            try:
+                new_msg.add_attachment(
+                    attachment.get_content().encode("ascii"), # text encoded to byte string
+                    **kwargs
+                )
+            except AttributeError:
+                new_msg.add_attachment(
+                    attachment.get_content(), # byte string
+                    **kwargs
+                )
     else:
-        out_msg = msg
+        new_msg = msg
 
     # send
     msmtp_args = ["/usr/bin/msmtp", "-a", "AAU"]
     msmtp_args.extend(argv[1:])
-    run(msmtp_args, input=out_msg.as_bytes())
+    run(msmtp_args, input=new_msg.as_bytes())
     #print(out_msg.as_string())
 
 if __name__ == "__main__":
