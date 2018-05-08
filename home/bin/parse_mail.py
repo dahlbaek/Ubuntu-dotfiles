@@ -15,7 +15,7 @@ def main():
     # only convert if there is an inline text/plain part
     if msg.get_body(preferencelist=("plain",)):
         new_msg = message.MIMEPart(policy=policy.SMTP)
-        # copy headers
+        # header to copy
         headers = [
             "Date",
             "From",
@@ -36,7 +36,7 @@ def main():
             cte="base64"
         )
         new_msg.add_alternative(
-            convert_text(inline.get_content(), "html", format="md"),
+            convert_text(inline.get_content(), "html", format="commonmark"),
             subtype="html",
             charset="utf-8",
             cte="base64"
