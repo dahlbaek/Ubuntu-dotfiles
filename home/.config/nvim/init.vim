@@ -29,7 +29,7 @@ noremap X "_D
 nnoremap xx "_dd
 noremap c "_c
 noremap C "_C
-nnoremap cc "_ddi
+nnoremap cc "_ddO
 
 " Sensible settings
 nnoremap <silent> <C-L> :nohlsearch<Bar>call sneak#cancel()<Bar>diffupdate<CR><C-L>
@@ -111,14 +111,15 @@ let g:iron_repl_open_cmd="vsplit"
 
 " Configure Python
 let g:loaded_python_provider=1
-let g:python3_host_prog='~/.config/nvim/venv/bin/python3'
+let g:python3_host_prog='/home/dahlbaek/.config/nvim/venv/bin/python3'
 let g:iron_map_defaults=0
 augroup ironmapping
     autocmd!
-    autocmd Filetype python nmap <buffer> <localleader>r :IronRepl<CR><C-\><C-N>:vertical resize 88<CR>G<C-W>p
-    autocmd Filetype python nmap <buffer> <localleader>s <Plug>(iron-send-motion)
-    autocmd Filetype python vmap <buffer> <localleader>s <Plug>(iron-send-motion)
-    autocmd Filetype python nmap <buffer> <localleader>p <Plug>(iron-repeat-cmd)
+    " python
+    autocmd Filetype python,r nmap <buffer> <localleader>r :IronRepl<CR><C-\><C-N>:vertical resize 88<CR>G<C-W>p
+    autocmd Filetype python,r nmap <buffer> <localleader>s <Plug>(iron-send-motion)
+    autocmd Filetype python,r vmap <buffer> <localleader>s <Plug>(iron-send-motion)
+    autocmd Filetype python,r nmap <buffer> <localleader>p <Plug>(iron-repeat-cmd)
 augroup END
 
 " Configure vim-syntastic
@@ -129,7 +130,7 @@ set statusline+=%*
 let g:syntastic_c_compiler_options = '-std=c99'
 let g:syntastic_c_config_file = '~/.config/nvim/syntastic_c_config_file'
 let g:syntastic_python_checkers = ['pylint']
-let g:syntastic_python_pylint_exec = 'pylint3'
+let g:syntastic_python_pylint_exec = '~/.config/nvim/venv/bin/pylint'
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_mode_map = {"mode": "passive"}
