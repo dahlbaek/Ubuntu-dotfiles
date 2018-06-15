@@ -36,3 +36,7 @@ umask 0077
 # recommended setting by gpg-agent
 GPG_TTY=$(tty)
 export GPG_TTY
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/dahlbaek/.sdkman"
+[[ -s "/home/dahlbaek/.sdkman/bin/sdkman-init.sh" ]] && source "/home/dahlbaek/.sdkman/bin/sdkman-init.sh"
