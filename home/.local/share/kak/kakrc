@@ -1,0 +1,141 @@
+def -params 1 -docstring "colorscheme <name>: enable named colorscheme" \
+    -shell-candidates %{
+    find -L "${kak_runtime}/colors" "${kak_config}/colors" -type f -name '*\.kak' \
+        | while read -r filename; do
+            basename="${filename##*/}"
+            printf %s\\n "${basename%.*}"
+        done | sort -u
+  } \
+  colorscheme %{ %sh{
+    find_colorscheme() {
+        find -L "${1}" -type f -name "${2}".kak | head -n 1
+    }
+
+    if [ -d "${kak_config}/colors" ]; then
+        filename=$(find_colorscheme "${kak_config}/colors" "${1}")
+    fi
+    if [ -z "${filename}" ]; then
+        filename=$(find_colorscheme "${kak_runtime}/colors" "${1}")
+    fi
+
+    if [ -n "${filename}" ]; then
+        printf 'source %%{%s}' "${filename}"
+    else
+        echo "echo -markup '{Error}No such colorscheme'"
+    fi
+}}
+
+%sh{
+    autoload_directory() {
+        find -L "$1" -type f -name '*\.kak' \
+            -exec printf 'try %%{ source "%s" } catch %%{ echo -debug Autoload: could not load "%s" }\n' '{}' '{}' \;
+    }
+
+    echo "colorscheme default"
+
+    if [ -d "${kak_config}/autoload" ]; then
+        autoload_directory ${kak_config}/autoload
+    elif [ -d "${kak_runtime}/autoload" ]; then
+        autoload_directory ${kak_runtime}/autoload
+    fi
+
+    if [ -f "${kak_runtime}/kakrc.local" ]; then
+        echo "source '${kak_runtime}/kakrc.local'"
+    fi
+
+    if [ -f "${kak_config}/kakrc" ]; then
+        echo "source '${kak_config}/kakrc'"
+    fi
+}
+
+# use <c-e> as <esc>
+map global prompt <c-e> <esc>
+map global insert <c-e> <esc>
+
+# show line numbers
+add-highlighter global number_lines -relative -hlcursor
+add-highlighter global wrap -word -indent
+add-highlighter global show_matching
+
+# insert end parenthesis
+hook global InsertChar \( %{
+    execute-keys -no-hooks ) <left>
+}
+hook global InsertChar \) %{
+    try %{
+        execute-keys <esc> H <a-k>\)\)<ret> d i )
+    }
+}
+hook global InsertChar \[ %{
+    execute-keys -no-hooks ] <left>
+}
+hook global InsertChar \] %{
+    try %{
+        execute-keys <esc> H <a-k>\]\]<ret> d i ]
+    }
+}
+hook global InsertChar \{ %<
+    execute-keys -no-hooks } <left>
+>
+hook global InsertChar \} %<
+    try %<
+        execute-keys <esc> H <a-k>\}\}<ret> d i }
+    >
+>
+
+# space for tab
+hook global InsertChar \t %{ try %{
+    execute-keys -draft h %opt{indentwidth}@
+} }
+
+# python repl commands
+define-command python-repl-open %{
+    nop %sh{
+        /usr/bin/tmux new-session -d -s ipython-repl ipython
+        COMMAND="/usr/bin/tmux attach-session -t ipython-repl"
+        NO_AT_BRIDGE=1 /usr/bin/gnome-terminal -e "${COMMAND}"
+    }
+}
+define-command python-repl-send %{
+    nop %sh{
+        CODE="$(/usr/bin/printf "\e[200~${kak_selection}\e[201~")"
+        /usr/bin/tmux send-keys -t ipython-repl "${CODE}" Enter
+    }
+}
+
+# python-indent commands
+define-command -hidden python-indent-on-new-line2 %<
+    evaluate-commands -draft -itersel %<
+        # indent after line ending with (,[,{
+        try %<
+            execute-keys -draft <space> k <a-x> <a-k> [\(\[\{]$ <ret> j <a-gt>
+        >
+        # deindent after line ending with ),],}
+        try %<
+            execute-keys -draft <space> k <a-x> <a-k> ^\h*[\)\]\}]$ <ret>
+            execute-keys -draft <space> Z k <a-x> _ m <a-S> \' <a-z> a <a-&>
+        >
+    >
+>
+
+# python remove ws command
+define-command -hidden python-remove-ws %{
+    try %{
+        execute-keys -draft <space> <a-x> <a-k> ^(\h{4})*\h{3}$ <ret> h 2H <a-d>
+    }
+}
+
+# python filetype hooks
+hook -group python-configs global WinSetOption filetype=python %{
+    # use autopep8 for python formatcmd
+    set window formatcmd 'autopep8 -'
+    # maps for repl
+    map window user r :python-repl-open<ret>
+    map window user s :python-repl-send<ret>
+    # set additional indent hooks
+    hook -group python-indent window InsertChar \n python-indent-on-new-line2
+    hook -group python-indent window InsertDelete \h python-remove-ws
+}
+hook global WinSetOption filetype=(?!python).* %{
+    remove-hooks window python-configs
+}
