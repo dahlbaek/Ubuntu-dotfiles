@@ -84,9 +84,9 @@ hook global InsertChar \} %<
 >
 
 # space for tab
-hook global InsertChar \t %{ try %{
-    execute-keys -draft h %opt{indentwidth}@
-} }
+# hook global InsertChar \t %{ try %{
+#    execute-keys -draft h %opt{indentwidth}@
+#} }
 
 # python repl commands
 define-command python-repl-open %{
