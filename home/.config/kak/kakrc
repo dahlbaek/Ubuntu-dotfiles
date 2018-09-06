@@ -3,9 +3,9 @@ map global prompt <c-e> <esc>
 map global insert <c-e> <esc>
 
 # show line numbers
-add-highlighter global number_lines -relative -hlcursor
-add-highlighter global wrap -word -indent
-add-highlighter global show_matching
+add-highlighter global/ number-lines -relative -hlcursor
+add-highlighter global/ wrap -word -indent
+add-highlighter global/ show-matching
 
 # insert end parenthesis
 hook global InsertChar \( %{
