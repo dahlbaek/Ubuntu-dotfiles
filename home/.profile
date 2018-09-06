@@ -20,4 +20,7 @@ fi
 PATH="${HOME}/bin:${HOME}/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 # include cargo in path
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="${HOME}/.cargo/bin:$PATH"
+
+# include npm in path
+export PATH="${HOME}/npm-global/bin:$PATH"
