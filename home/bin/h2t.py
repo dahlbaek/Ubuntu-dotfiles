@@ -13,7 +13,6 @@ def main():
     h.body_width = 0
     h.use_automatic_links = False
     h.wrap_links = False
-    h.single_line_break = True
 
     with open(filename, "r") as data:
         try:
