@@ -11,8 +11,8 @@ from pypandoc import convert_text
 def convert(msg):
     """Convert markdown into html."""
     new_msg = make_new(msg)
-    new_msg = add_alternative(msg, new_msg)
-    new_msg = add_attachments(msg, new_msg)
+    add_alternative(msg, new_msg)
+    add_attachments(msg, new_msg)
     return new_msg
 
 def make_new(msg):
@@ -47,7 +47,6 @@ def add_alternative(msg, new_msg):
         cte="base64"
     )
     new_msg["Content-Disposition"] = "inline"
-    return new_msg
 
 def add_attachments(msg, new_msg):
     """Add remaining attachments."""
