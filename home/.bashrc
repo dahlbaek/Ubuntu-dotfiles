@@ -3,10 +3,6 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-# set nvim as default editor
-export EDITOR=nvim
-export VISUAL="${EDITOR}"
-
 # clear up prompt
 PS1="$ "
 
