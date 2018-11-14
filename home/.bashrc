@@ -23,12 +23,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# disable XOFF and XON, which hang/unhang the terminal on <C-s> and <C-q>
-stty -ixon
-
-# set restrictive umask
-umask 0077
-
 # recommended setting by gpg-agent
 GPG_TTY=$(tty)
 export GPG_TTY

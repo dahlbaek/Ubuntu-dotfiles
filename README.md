@@ -76,14 +76,8 @@ to
 
 ## setup
 
-Set restrictive permissions inside repository
-
-```sh
-find "${HOME}/git/dotfiles" -not -xtype l -exec chmod go-rwx {} +
-```
-
 Recursively create symlinks to dotfiles
 
 ```sh
-cp --force --no-dereference --preserve=all --recursive --symbolic-link --verbose -- "${HOME}/git/dotfiles/home/." "${HOME}" >setup.log
+cp --force --no-dereference --preserve=all --recursive --symbolic-link --verbose -- "${HOME}/git/dotfiles/home/." "${HOME}" >"${HOME}/git/dotfiles/setup.log"
 ```
