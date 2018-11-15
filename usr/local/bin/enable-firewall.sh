@@ -1,3 +1,5 @@
+#!/bin/sh
+
 set -euf
 IFS=''
 PATH='/sbin'
@@ -33,9 +35,9 @@ iptables -A INPUT -p tcp --sport 993 -m conntrack --ctstate ESTABLISHED -j ACCEP
 iptables -A OUTPUT -p tcp --dport 587 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 iptables -A INPUT -p tcp --sport 587 -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
-## Allow HTTP and HTTPS
-iptables -A OUTPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
-iptables -A INPUT -p tcp -m multiport --sports 80,443 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+## Allow HTTPS
+iptables -A OUTPUT -p tcp -m multiport --dports 443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp -m multiport --sports 443 -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
 ## Log everything that is dropped
 iptables -A INPUT -j LOG --log-prefix "INPUT:DROP:" --log-level 6
@@ -44,5 +46,3 @@ iptables -A OUTPUT -j LOG --log-prefix "OUTPUT:DROP:" --log-level 6
 
 ## Save rules
 iptables-save >/etc/iptables.conf
-
-## add 'iptables-restore </etc/iptables.conf' to /etc/rc.local to load rules on system boot

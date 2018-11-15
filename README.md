@@ -3,14 +3,12 @@
 A collection of my dotfiles (mostly minor tweaks to default configs) along with
 some simple setup instructions for Ubuntu 18.04.
 
-## standard programs
+## get git
 
-In order to have some basic programs available, run the commands
+Get git by running the command
 
 ```sh
-sudo apt-get update
-sudo apt-get install atom curl git gnupg2 i3 ranger zathura
-sudo apt-get upgrade
+sudo apt-get install git
 ```
 
 ## clone the repository
@@ -19,41 +17,30 @@ Further instructions and scripts assume that `git` has been used to clone the
 repository to `~/git/dotfiles`
 
 ```sh
-git clone https://github.com/dahlbaek/Ubuntu-dotfiles.git "${HOME}/git/dotfiles"
+git clone https://github.com/dahlbaek/Devuan-dotfiles.git "${HOME}/git/dotfiles"
 ```
 
 ## iptables
 
-Copy the `iptables.sh` and `open-iptables.sh` scripts to a secure location,
-using the commands
+Copy the `enable-firewall.sh` and `disable-firewall.sh` scripts to a secure
+location, using the commands
 
 ```sh
-sudo cp "${HOME}/git/dotfiles/home/.config/iptables/iptables.sh" /usr/local/bin/iptables.sh
-sudo cp "${HOME}/git/dotfiles/home/.config/iptables/open-iptables.sh" /usr/local/bin/open-iptables.sh
+sudo cp "${HOME}"/git/dotfiles/usr/local/bin/{enable,disable}-firewall.sh /usr/local/bin
+sudo chmod u+x /usr/local/bin/{enable,disable}-firewall.sh
 ```
 
-You may need to create one or more directories first. Check that the file mode
-is correctly set
-
-Save rules for open firewall
+Next, use `systemd` to start the firewall and enable the firewall at boot
 
 ```sh
-sudo -- /bin/sh -- /usr/local/bin/open-iptables.sh
+sudo cp "${HOME}/git/dotfiles/etc/systemd/system/firewall.service" /etc/systemd/system
+sudo systemctl start firewall
+sudo systemctl enable firewall
 ```
-
-Set and save restrictive firewall rules
-
-```sh
-sudo -- /bin/sh -- /usr/local/bin/iptables.sh
-```
-
-As noted in the file `iptables.sh`, if you want to preserve firewall rules
-between sessions (and you do), you need to add `iptables-restore
-</etc/iptables.conf` to `/etc/rc.local`.
 
 ## sudoers
 
-Allow yourself to update, upgrade and set iptables rules without typing in a
+Allow yourself to update and upgrade without typing in a
 password. This can be done using the command `sudo visudo`, which is a safe way
 to edit the file `/etc/sudoers`. I do not want the terminal to remember my
 password, which can be controlled with the `timestamp_timeout`. So, add the line
@@ -71,7 +58,17 @@ and change the line
 to
 
 ```
-%sudo	ALL=(ALL:ALL) ALL, NOPASSWD: /usr/bin/apt-get -- update, /usr/bin/apt-get -- upgrade, /bin/sh -- /usr/local/bin/iptables.sh
+%sudo	ALL=(ALL:ALL) ALL, NOPASSWD: /usr/bin/apt-get -- update, /usr/bin/apt-get -- upgrade
+```
+
+## standard programs
+
+Download `atom-amd64.deb` from the [homepage](https://atom.io/) and run
+
+```sh
+sudo apt-get update
+sudo apt-get install ./atom-amd64.deb curl gnupg2 i3 ranger zathura
+sudo apt-get upgrade
 ```
 
 ## setup

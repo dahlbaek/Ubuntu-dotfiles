@@ -1,0 +1,15 @@
+[Unit]
+Description=Firewall
+Requires=network-pre.target
+After=network-pre.target
+Before=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/usr/local/bin/enable-firewall.sh
+ExecReload=/sbin/iptables-restore </etc/iptables.conf
+ExecStop=/usr/local/bin/disable-firewall.sh
+
+[Install]
+RequiredBy=network-online.target
