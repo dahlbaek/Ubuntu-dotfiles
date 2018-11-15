@@ -1,7 +1,8 @@
-# dotfiles for my Ubuntu setup
+# config for my Debian setup
 
-A collection of my dotfiles (mostly minor tweaks to default configs) along with
-some simple setup instructions for Ubuntu 18.04.
+A collection of my dotfiles and other setup (mostly minor
+tweaks to default configs) along with some simple setup
+instructions for Debian Stretch.
 
 ## get git
 
@@ -45,13 +46,14 @@ in `/etc/adduser.conf`.
 
 ## sudoers
 
-Allow yourself to update and upgrade without typing in a
-password. This can be done using the command `sudo visudo`, which is a safe way
-to edit the file `/etc/sudoers`. I do not want the terminal to remember my
-password, which can be controlled with the `timestamp_timeout`. So, add the line
+Allow yourself to update and upgrade without typing in a password. This can be
+done using the command `sudo visudo`, which is a safe way to edit the file
+`/etc/sudoers`. I do not want the terminal to remember my password for more
+that 60 seconds, which can be controlled with the `timestamp_timeout`. So, add
+the line
 
 ```
-Defaults	timestamp_timeout=0
+Defaults	timestamp_timeout=60
 ```
 
 and change the line
