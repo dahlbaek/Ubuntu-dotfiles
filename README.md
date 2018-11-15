@@ -38,6 +38,11 @@ sudo systemctl start firewall
 sudo systemctl enable firewall
 ```
 
+## multiple users
+
+If you will be having multiple users on a single machine, consider setting `DIR_MODE=0750`
+in `/etc/adduser.conf`.
+
 ## sudoers
 
 Allow yourself to update and upgrade without typing in a
