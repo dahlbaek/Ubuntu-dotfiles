@@ -76,6 +76,14 @@ sudo apt-get install ./atom-amd64.deb curl gnupg2 i3 ranger zathura
 sudo apt-get upgrade
 ```
 
+### WIP
+
+Download and prepare files for offline install using
+
+```sh
+xargs -a links -n 1 curl -L -O
+```
+
 ## setup
 
 Recursively create symlinks to dotfiles
