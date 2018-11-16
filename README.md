@@ -18,7 +18,7 @@ Further instructions and scripts assume that `git` has been used to clone the
 repository to `~/git/dotfiles`
 
 ```sh
-git clone https://github.com/dahlbaek/Ubuntu-dotfiles.git "${HOME}/git/dotfiles"
+git clone https://github.com/dahlbaek/Debian-dotfiles.git "${HOME}/git/dotfiles"
 ```
 
 ## iptables
