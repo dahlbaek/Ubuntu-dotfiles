@@ -74,7 +74,7 @@ Download `atom-amd64.deb` from the [homepage](https://atom.io/) and run
 
 ```sh
 sudo apt-get update
-sudo apt-get install ./atom-amd64.deb curl gnupg2 i3 ranger xserver-xorg-input-synaptics zathura
+sudo apt-get install ./atom-amd64.deb apt-transport-https curl gnupg2 i3 ranger xserver-xorg-input-synaptics zathura
 sudo apt-get upgrade
 ```
 
