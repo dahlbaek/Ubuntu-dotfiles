@@ -4,21 +4,129 @@ A collection of my dotfiles and other setup (mostly minor
 tweaks to default configs) along with some simple setup
 instructions for Debian Stretch.
 
-## get git
+## preparation
 
-Get git by running the command
+Prepare a usb drive with a hybrid-iso image, firmware and select packages to
+install. First, download the git repository to a `dotfiles` folder
 
 ```sh
-sudo apt-get install git
+git clone https://github.com/dahlbaek/Debian-dotfiles.git dotfiles
 ```
 
-## clone the repository
-
-Further instructions and scripts assume that `git` has been used to clone the
-repository to `~/git/dotfiles`
+Then, create folders to contain the other files
 
 ```sh
-git clone https://github.com/dahlbaek/Debian-dotfiles.git "${HOME}/git/dotfiles"
+mkdir local install firmware
+```
+
+Next, create a file `links` in `install` which
+contains links to the install files to download. The contents of `links` could look
+like this:
+
+```
+https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS
+https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS.sign
+https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.6.0-amd64-xfce-CD-1.iso
+```
+
+Download the files by running the command
+
+```sh
+xargs -a links -n 1 curl -L -O
+```
+
+Then download firmware files similarly in the firmware folder. In this case
+an example links file could look like
+
+```
+https://cdimage.debian.org/cdimage/unofficial/non-free/firmware/stretch/20181110/SHA256SUMS
+https://cdimage.debian.org/cdimage/unofficial/non-free/firmware/stretch/20181110/firmware.tar.gz
+```
+
+In the `install` folder, verify that `SHA256SUMS` is correctly signed by running
+
+```sh
+gpg --verify SHA256SUMS.sign SHA256SUMS
+```
+
+If the key is unknown, retrieve the key with
+
+```sh
+gpg --recv-keys DF9B9C49EAA9298432589D76DA87E80D6294BE9B
+```
+
+where DF9B9C49EAA9298432589D76DA87E80D6294BE9B is an example of a key id. Next, verify
+the hash of the iso, by running
+
+```sh
+sha256sum -c SHA256SUMS 2>&1 | grep OK
+```
+
+Similarly, check the hash of the firmware tarball in the `firmware` folder. Then unpack the
+tarball
+
+```sh
+tar zxvf firmware.tar.gz
+```
+
+Finally, go to the `local` folder and run
+
+```sh
+FLAGS="--recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances"
+PACKAGES="apparmor apparmor-utils apparmor-profiles apt-transport-https git"
+DEPENDENCIES="$(sudo apt-cache depends ${FLAGS} ${PACKAGES} | grep "^\w" | sort -u)"
+sudo apt-get download ${DEPENDENCIES}
+dpkg-scanpackages . | gzip > Packages.gz
+```
+
+Next, create a bootable usb drive. If the unmounted usb drive is recognized on `/dev/sdb`, go to the `install`
+folder and run
+
+```sh
+sudo cp debian-9.6.0-amd64-xfce-CD-1.iso /dev/sdb
+```
+
+Next, use `fdisk` to create an extra fat16 partition (say sdb3) on the usb drive and format it by running
+
+```sh
+mkfs.vfat /dev/sdb3
+```
+
+then copy the `dotfiles`, `firmware` and `local` folders to that partition
+
+```sh
+sudo mount /dev/sdb3 /mnt -o uid=dahlbaek
+cp -r firmware local_repo dotfiles /mnt
+```
+
+Finally, unmount the usb drive
+
+```sh
+sudo umount /mnt
+```
+
+## install debian
+
+Simply boot from the usb drive and follow the instructions. Once finished,
+using the local repository on an offline machine is as easy as adding the line
+
+```
+deb [trusted=yes] file:///mnt local/
+```
+
+to a new file `local.list` in the folder `/etc/apt/sources.list.d`
+
+and running
+
+```sh
+sudo apt-get update
+sudo apt-get install apparmor apparmor-utils apparmor-profiles apt-transport-https git
+```
+
+Then, copy the repository from the usb drive
+
+```sh
+git clone /mnt/dotfiles "${HOME}/git/dotfiles"
 ```
 
 ## iptables
@@ -74,7 +182,7 @@ Download `atom-amd64.deb` from the [homepage](https://atom.io/) and run
 
 ```sh
 sudo apt-get update
-sudo apt-get install ./atom-amd64.deb curl gnupg2 i3 ranger xserver-xorg-input-synaptics zathura
+sudo apt-get install ./atom-amd64.deb curl dpkg-dev dirmngr i3 ranger xserver-xorg-input-synaptics zathura
 sudo apt-get upgrade
 ```
 
