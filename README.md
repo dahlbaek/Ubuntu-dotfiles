@@ -130,6 +130,19 @@ Then, copy the git repository from the usb drive
 cp -r /mnt/dotfiles "${HOME}/git/dotfiles"
 ```
 
+## apparmor
+
+To enable `apparmor` run
+
+```sh
+sudo mkdir -p /etc/default/grub.d
+echo 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT apparmor=1 security=apparmor"' | sudo tee /etc/default/grub.d/apparmor.cfg
+sudo update-grub
+sudo systemctl enable apparmor
+```
+
+then reboot.
+
 ## iptables
 
 Copy the `enable-firewall.sh` and `disable-firewall.sh` scripts to a secure
@@ -176,19 +189,6 @@ to
 ```
 %sudo	ALL=(ALL:ALL) ALL, NOPASSWD: /usr/bin/apt-get -- update, /usr/bin/apt-get -- upgrade
 ```
-
-## apparmor
-
-To enable `apparmor` run
-
-```sh
-sudo mkdir -p /etc/default/grub.d
-echo 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT apparmor=1 security=apparmor"' | sudo tee /etc/default/grub.d/apparmor.cfg
-sudo update-grub
-sudo systemctl enable apparmor
-```
-
-then reboot.
 
 ## standard programs
 
