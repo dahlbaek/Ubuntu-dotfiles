@@ -73,7 +73,7 @@ Finally, go to the `local` folder and run
 
 ```sh
 FLAGS="--recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances"
-PACKAGES="apparmor apparmor-utils apparmor-profiles apt-transport-https git"
+PACKAGES="apparmor apparmor-utils apparmor-profiles apparmor-profiles-extra apt-transport-https"
 DEPENDENCIES="$(sudo apt-cache depends ${FLAGS} ${PACKAGES} | grep "^\w" | sort -u)"
 sudo apt-get download ${DEPENDENCIES}
 dpkg-scanpackages . | gzip > Packages.gz
@@ -120,7 +120,7 @@ and running
 
 ```sh
 sudo apt-get update
-sudo apt-get install apparmor apparmor-utils apparmor-profiles apt-transport-https git
+sudo apt-get install apparmor apparmor-utils apparmor-profiles apparmor-profiles-extra apt-transport-https
 ```
 
 Delete local.list again, and add appropriate repositories to `/etc/apt/sources.list`.
@@ -197,7 +197,7 @@ Get the HTTPS Everywhere and NoScript Security Suite for Firefox, then download
 
 ```sh
 sudo apt-get update
-sudo apt-get install ./atom-amd64.deb curl dpkg-dev dirmngr i3 ranger xserver-xorg-input-synaptics zathura
+sudo apt-get install ./atom-amd64.deb curl dpkg-dev dirmngr git i3 ranger xserver-xorg-input-synaptics zathura
 sudo apt-get upgrade
 ```
 
