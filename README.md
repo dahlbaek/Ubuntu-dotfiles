@@ -127,7 +127,7 @@ Delete local.list again, and add appropriate repositories to `/etc/apt/sources.l
 Then, copy the git repository from the usb drive
 
 ```sh
-git clone /mnt/dotfiles "${HOME}/git/dotfiles"
+cp -r /mnt/dotfiles "${HOME}/git/dotfiles"
 ```
 
 ## iptables
