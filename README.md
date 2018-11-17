@@ -111,7 +111,7 @@ Simply boot from the usb drive and follow the instructions. Once finished,
 using the local repository on an offline machine is as easy as adding the line
 
 ```
-deb [trusted=yes] file:///mnt local/
+deb [trusted=yes] file:///mnt/local ./
 ```
 
 to a new file `local.list` in the folder `/etc/apt/sources.list.d`
@@ -123,7 +123,8 @@ sudo apt-get update
 sudo apt-get install apparmor apparmor-utils apparmor-profiles apt-transport-https git
 ```
 
-Then, copy the repository from the usb drive
+Delete local.list again, and add appropriate repositories to `/etc/apt/sources.list`.
+Then, copy the git repository from the usb drive
 
 ```sh
 git clone /mnt/dotfiles "${HOME}/git/dotfiles"
@@ -176,9 +177,23 @@ to
 %sudo	ALL=(ALL:ALL) ALL, NOPASSWD: /usr/bin/apt-get -- update, /usr/bin/apt-get -- upgrade
 ```
 
+## apparmor
+
+To enable `apparmor` run
+
+```sh
+sudo mkdir -p /etc/default/grub.d
+echo 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT apparmor=1 security=apparmor"' | sudo tee /etc/default/grub.d/apparmor.cfg
+sudo update-grub
+sudo systemctl enable apparmor
+```
+
+then reboot.
+
 ## standard programs
 
-Download `atom-amd64.deb` from the [homepage](https://atom.io/) and run
+Get the HTTPS Everywhere and NoScript Security Suite for Firefox, then download
+`atom-amd64.deb` from the [homepage](https://atom.io/) and run
 
 ```sh
 sudo apt-get update
