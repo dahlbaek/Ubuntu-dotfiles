@@ -96,7 +96,7 @@ then copy the `dotfiles`, `firmware` and `local` folders to that partition
 
 ```sh
 sudo mount /dev/sdb3 /mnt -o uid=dahlbaek
-cp -r firmware local_repo dotfiles /mnt
+cp -r firmware local dotfiles /mnt
 ```
 
 Finally, unmount the usb drive
