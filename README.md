@@ -123,11 +123,17 @@ sudo apt-get update
 sudo apt-get install apparmor apparmor-utils apparmor-profiles apparmor-profiles-extra apt-transport-https
 ```
 
-Delete local.list again, and add appropriate repositories to `/etc/apt/sources.list`.
-Then, copy the git repository from the usb drive
+Copy the git repository from the usb drive
 
 ```sh
 cp -r /mnt/dotfiles "${HOME}/git/dotfiles"
+```
+
+Then, delete `local.list` and add appropriate repositories to `/etc/apt/sources.list`
+
+```sh
+sudo rm /etc/apt/sources.list.d/local.list
+sudo cp "${HOME}/git/dotfiles/etc/apt/sources.list" /etc/apt/sources.list
 ```
 
 ## apparmor
@@ -142,6 +148,16 @@ sudo systemctl enable apparmor
 ```
 
 then reboot.
+
+Profiles are located in `/etc/apparmor.d/`, with additional profiles in
+`/usr/share/doc/apparmor-profiles/extras/`. For instance, enable the Firefox
+profiles by running
+
+```sh
+cd /usr/share/doc/apparmor-profiles/extras
+sudo cp -i *firefox* /etc/apparmor.d/
+for f in *firefox* ; do sudo aa-enforce /etc/apparmor.d/$f; done
+```
 
 ## iptables
 
