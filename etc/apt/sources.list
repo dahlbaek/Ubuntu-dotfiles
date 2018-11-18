@@ -1,16 +1,15 @@
 # release
-deb https://mirror.one.com/debian/ stretch main
-# deb-src https://mirror.one.com/debian/ stretch main
-
-# security updates
-deb http://security.debian.org/debian-security stretch/updates main
-# deb-src http://security.debian.org/debian-security stretch/updates main
+deb https://mirror.one.com/debian/ stretch main contrib
+# deb-src https://mirror.one.com/debian/ stretch main contrib
 
 # important updates
-deb https://mirror.one.com/debian/ stretch-updates main
-# deb-src https://mirror.one.com/debian/ stretch-updates main
+deb https://mirror.one.com/debian/ stretch-updates main contrib
+# deb-src https://mirror.one.com/debian/ stretch-updates main contrib
 
 # backported updates
-deb https://mirror.one.com/debian/ stretch-backports main
-# deb-src https://mirror.one.com/debian/ stretch-backports main
+deb https://mirror.one.com/debian/ stretch-backports main contrib
+# deb-src https://mirror.one.com/debian/ stretch-backports main contrib
 
+# security updates
+deb http://security.debian.org/debian-security stretch/updates main contrib
+# deb-src http://security.debian.org/debian-security stretch/updates main contrib
