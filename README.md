@@ -224,3 +224,27 @@ Recursively create symlinks to dotfiles
 ```sh
 cp --force --no-dereference --preserve=all --recursive --symbolic-link --verbose -- "${HOME}/git/dotfiles/home/." "${HOME}" >"${HOME}/git/dotfiles/setup.log"
 ```
+
+## aptly
+
+Download the iso, untar and setup local repos
+
+```sh
+bsdtar -C CD-1/ -xf debian-9.6.0-amd64-xfce-CD-1.iso
+aptly repo create xfce-CD-1
+aptly repo add xfce-CD-1 CD-1
+PACKS_RELEASE=$(aptly repo show -with-packages xfce-CD-1 | grep "^\ " | xargs echo | sed "s/ / | /g")
+PACKS_ADD="apparmor | apparmor-utils | apt-transport-https | curl | dirmngr | git | i3 | ranger | xserver-corg-input-synaptics | zathura"
+aptly -architectures="amd64" mirror create -filter="${PACKS_ADD} | ${PACKS_RELEASE}" -filter-with-deps stretch https://mirror.one.com/debian/ stretch main contrib
+aptly -architectures="amd64" mirror create -filter="${PACKS_ADD} | ${PACKS_RELEASE}" -filter-with-deps stretch-updates https://mirror.one.com/debian/ stretch-updates main contrib
+aptly -architectures="amd64" mirror create -filter="${PACKS_ADD} | ${PACKS_RELEASE}" -filter-with-deps stretch-security http://security.debian.org/debian-security stretch/updates main contrib
+aptly mirror update stretch
+aptly mirror update stretch-updates
+aptly mirror update stretch-security
+aptly snapshot create stretch from mirror stretch
+aptly snapshot create stretch-updates from mirror stretch-updates
+aptly snapshot create stretch-security from mirror stretch-security
+aptly snapshot create xfce-CD-1 from repo xfce-CD-1
+aptly snapshot merge xfce-CD-1-mod xfce-CD-1 stretch stretch-updates stretch-security
+aptly publish snapshot -distribution="stretch" xfce-CD-1-mod xfce-CD-1-mod
+```
