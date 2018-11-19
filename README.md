@@ -119,16 +119,6 @@ to
 %sudo	ALL=(ALL:ALL) ALL, NOPASSWD: /usr/bin/apt-get -- update, /usr/bin/apt-get -- upgrade
 ```
 
-## standard programs
-
-Download `atom-amd64.deb` from the [homepage](https://atom.io/) and run
-
-```sh
-sudo apt-get update
-sudo apt-get install ./atom-amd64.deb curl gnupg2 i3 ranger zathura
-sudo apt-get upgrade
-```
-
 ## iptables and network
 
 Copy the `enable-firewall.sh` and `disable-firewall.sh` scripts to a secure
