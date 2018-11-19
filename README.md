@@ -1,8 +1,7 @@
 # config for my Debian setup
 
-A collection of my dotfiles and other setup (mostly minor
-tweaks to default configs) along with some simple setup
-instructions for Debian Stretch.
+A collection of my dotfiles and other setup (mostly minor tweaks to default
+configs) along with some simple setup instructions for Debian Stretch.
 
 ## preparation
 
@@ -16,10 +15,10 @@ git clone https://github.com/dahlbaek/dotfiles.git
 Then, create folders to contain the other files
 
 ```sh
-mkdir xfce-CD-1 firmware
+mkdir install firmware
 ```
 
-Next, create a file `links` in `xfce-CD-1` which contains links to the install
+Next, create a file `links` in `install` which contains links to the install
 files to download. The contents of `links` could look like this:
 
 ```
@@ -74,7 +73,7 @@ Next, create a bootable usb drive. If the unmounted usb drive is recognized on `
 folder and run
 
 ```sh
-sudo cp test.iso /dev/sdb
+sudo cp debian-9.6.0-amd64-xfce-CD-1.iso /dev/sdb
 ```
 
 Next, use `fdisk` to create an extra ext4 partition (say sdb3) on the usb drive and format it by running
