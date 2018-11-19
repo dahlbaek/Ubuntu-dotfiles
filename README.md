@@ -16,7 +16,7 @@ git clone https://github.com/dahlbaek/Debian-dotfiles.git dotfiles
 Then, create folders to contain the other files
 
 ```sh
-mkdir local install firmware
+mkdir xfce-CD-1 firmware
 ```
 
 Next, create a file `links` in `install` which
@@ -69,34 +69,71 @@ tarball
 tar zxvf firmware.tar.gz
 ```
 
-Finally, go to the `local` folder and run
+## aptly
+
+Untar the iso and setup modified package pool
 
 ```sh
-FLAGS="--recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances"
-PACKAGES="apparmor apparmor-utils apparmor-profiles apparmor-profiles-extra apt-transport-https"
-DEPENDENCIES="$(sudo apt-cache depends ${FLAGS} ${PACKAGES} | grep "^\w" | sort -u)"
-sudo apt-get download ${DEPENDENCIES}
-dpkg-scanpackages . | gzip > Packages.gz
+mkdir CD-1
+bsdtar -C CD-1/ -xf debian-9.6.0-amd64-xfce-CD-1.iso
+chmod -R +w CD-1
+aptly repo create xfce-CD-1
+aptly repo add xfce-CD-1 CD-1
+aptly snapshot create xfce-CD-1 from repo xfce-CD-1
+PACKS_RELEASE=$(aptly repo show -with-packages xfce-CD-1 | grep "^\ " | xargs echo | sed "s/ / | /g")
+PACKS_ADD="apparmor | apparmor-utils | apparmor-profiles | apt-transport-https | aptly | bsdtar | curl | dirmngr | git | i3 | isolinux | ranger | xorriso | xserver-corg-input-synaptics | zathura"
+aptly -architectures="amd64" -dep-follow-recommends mirror create -filter="${PACKS_ADD} | ${PACKS_RELEASE}" -filter-with-deps -with-udebs stretch https://mirror.one.com/debian/ stretch main
+aptly -architectures="amd64" -dep-follow-recommends mirror create -filter="${PACKS_ADD} | ${PACKS_RELEASE}" -filter-with-deps -with-udebs stretch-updates https://mirror.one.com/debian/ stretch-updates main
+aptly -architectures="amd64" -dep-follow-recommends mirror create -filter="${PACKS_ADD} | ${PACKS_RELEASE}" -filter-with-deps -with-udebs stretch-security http://security.debian.org/debian-security stretch/updates main
+aptly mirror update stretch
+aptly mirror update stretch-updates
+aptly mirror update stretch-security
+aptly snapshot create stretch from mirror stretch
+aptly snapshot create stretch-updates from mirror stretch-updates
+aptly snapshot create stretch-security from mirror stretch-security
+aptly snapshot merge xfce-CD-1-mod xfce-CD-1 stretch stretch-updates stretch-security
+aptly publish snapshot -distribution="stretch" -origin="Debian" -label="Debian" -skip-signing xfce-CD-1-mod xfce-CD-1-mod
 ```
+
+Simply replace the `pool` and `dists/stretch` folders in `CD-1` by those
+created by aptly, then regenerate `md5sum.txt`
+
+```sh
+rm -r CD-1/pool
+rm -r CD-1/dists/stretch
+cp -r ~/.aptly/public/xfce-CD-1-mod/dists/stretch CD-1/dists
+cp -r ~/.aptly/public/xfce-CD-1-mod/pool CD-1
+cd CD-1; md5sum `find ! -name "md5sum.txt" ! -path "./isolinux/*" -follow -type f` > md5sum.txt; cd ..
+```
+
+There will be a loop warning, simply disregard. Now create a new hybrid image `test.iso`
+
+```sh
+chmod -R -w cd
+dd if=debian-9.6.0-amd64-xfce-CD-1.iso bs=1 count=432 of=isohdpfx.bin
+xorriso -as mkisofs -o test.iso -isohybrid-mbr isohdpfx.bin -c isolinux/boot.cat -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table ./CD-1
+```
+
+## bootable usb
 
 Next, create a bootable usb drive. If the unmounted usb drive is recognized on `/dev/sdb`, go to the `install`
 folder and run
 
 ```sh
-sudo cp debian-9.6.0-amd64-xfce-CD-1.iso /dev/sdb
+sudo cp test.iso /dev/sdb
 ```
 
-Next, use `fdisk` to create an extra fat16 partition (say sdb3) on the usb drive and format it by running
+Next, use `fdisk` to create an extra ext4 partition (say sdb3) on the usb drive and format it by running
 
 ```sh
-mkfs.vfat /dev/sdb3
+mkfs.ext4 /dev/sdb3
 ```
 
-then copy the `dotfiles`, `firmware` and `local` folders to that partition
+then copy the `dotfiles` and `firmware` folders to that partition
 
 ```sh
 sudo mount /dev/sdb3 /mnt -o uid=dahlbaek
-cp -r firmware local dotfiles /mnt
+cp -r dotfiles firmware /mnt
 ```
 
 Finally, unmount the usb drive
@@ -105,34 +142,34 @@ Finally, unmount the usb drive
 sudo umount /mnt
 ```
 
-## install debian
-
-Simply boot from the usb drive and follow the instructions. Once finished,
-using the local repository on an offline machine is as easy as adding the line
-
-```
-deb [trusted=yes] file:///mnt/local ./
-```
-
-to a new file `local.list` in the folder `/etc/apt/sources.list.d`
-
-and running
+To remove everything again, run
 
 ```sh
-sudo apt-get update
-sudo apt-get install apparmor apparmor-utils apparmor-profiles apparmor-profiles-extra apt-transport-https
+aptly publish drop stretch xfce-CD-1-mod
+aptly snapshot drop xfce-CD-1-mod
+aptly snapshot drop xfce-CD-1
+aptly snapshot drop stretch
+aptly snapshot drop stretch-updates
+aptly snapshot drop stretch-security
+aptly repo drop xfce-CD-1
+aptly mirror drop stretch
+aptly mirror drop stretch-updates
+aptly mirror drop stretch-security
+rm -r CD-1
 ```
 
-Copy the git repository from the usb drive
+## install debian
+
+Simply boot from the usb drive and follow the instructions. Then copy the git
+repository from the usb drive
 
 ```sh
 cp -r /mnt/dotfiles "${HOME}/git/dotfiles"
 ```
 
-Then, delete `local.list` and add appropriate repositories to `/etc/apt/sources.list`
+Add appropriate repositories to `/etc/apt/sources.list`
 
 ```sh
-sudo rm /etc/apt/sources.list.d/local.list
 sudo cp "${HOME}/git/dotfiles/etc/apt/sources.list" /etc/apt/sources.list
 ```
 
@@ -206,14 +243,14 @@ to
 %sudo	ALL=(ALL:ALL) ALL, NOPASSWD: /usr/bin/apt-get -- update, /usr/bin/apt-get -- upgrade
 ```
 
-## standard programs
+## installation of .deb packages
 
 Get the HTTPS Everywhere and NoScript Security Suite for Firefox, then download
 `atom-amd64.deb` from the [homepage](https://atom.io/) and run
 
 ```sh
 sudo apt-get update
-sudo apt-get install ./atom-amd64.deb curl dpkg-dev dirmngr git i3 ranger xserver-xorg-input-synaptics zathura
+sudo apt-get install ./atom-amd64.deb
 sudo apt-get upgrade
 ```
 
@@ -223,28 +260,4 @@ Recursively create symlinks to dotfiles
 
 ```sh
 cp --force --no-dereference --preserve=all --recursive --symbolic-link --verbose -- "${HOME}/git/dotfiles/home/." "${HOME}" >"${HOME}/git/dotfiles/setup.log"
-```
-
-## aptly
-
-Download the iso, untar and setup local repos
-
-```sh
-bsdtar -C CD-1/ -xf debian-9.6.0-amd64-xfce-CD-1.iso
-aptly repo create xfce-CD-1
-aptly repo add xfce-CD-1 CD-1
-PACKS_RELEASE=$(aptly repo show -with-packages xfce-CD-1 | grep "^\ " | xargs echo | sed "s/ / | /g")
-PACKS_ADD="apparmor | apparmor-utils | apt-transport-https | curl | dirmngr | git | i3 | ranger | xserver-corg-input-synaptics | zathura"
-aptly -architectures="amd64" mirror create -filter="${PACKS_ADD} | ${PACKS_RELEASE}" -filter-with-deps stretch https://mirror.one.com/debian/ stretch main contrib
-aptly -architectures="amd64" mirror create -filter="${PACKS_ADD} | ${PACKS_RELEASE}" -filter-with-deps stretch-updates https://mirror.one.com/debian/ stretch-updates main contrib
-aptly -architectures="amd64" mirror create -filter="${PACKS_ADD} | ${PACKS_RELEASE}" -filter-with-deps stretch-security http://security.debian.org/debian-security stretch/updates main contrib
-aptly mirror update stretch
-aptly mirror update stretch-updates
-aptly mirror update stretch-security
-aptly snapshot create stretch from mirror stretch
-aptly snapshot create stretch-updates from mirror stretch-updates
-aptly snapshot create stretch-security from mirror stretch-security
-aptly snapshot create xfce-CD-1 from repo xfce-CD-1
-aptly snapshot merge xfce-CD-1-mod xfce-CD-1 stretch stretch-updates stretch-security
-aptly publish snapshot -distribution="stretch" xfce-CD-1-mod xfce-CD-1-mod
 ```
