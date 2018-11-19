@@ -154,6 +154,9 @@ sudo apt-get update
 sudo apt-get upgrade
 ```
 
+Then make sure to get the HTTPS Everywhere and NoScript Security Suite for
+Firefox
+
 ## setup
 
 Recursively create symlinks to dotfiles
