@@ -12,15 +12,6 @@ exec --no-startup-id xset -dpms
 # launch i3lock with black background
 bindsym $mod+End exec i3lock -c 000000
 
-# start ranger
-bindsym $mod+m exec gnome-terminal -x bash -i -c "ranger"
-
-# start mutt
-bindsym $mod+i exec gnome-terminal --working-directory=Downloads -x bash -i -c "runmutt.py"
-
-# start nvim
-bindsym $mod+n exec gnome-terminal -x bash -i -c "nvim"
-
 # pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
