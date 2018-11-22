@@ -1,8 +1,8 @@
-deb https://mirror.one.com/ubuntu/ bionic-security main
-# deb-src https://mirror.one.com/ubuntu/ bionic-security main
+deb https://mirror.one.com/ubuntu/ bionic-security main universe
+# deb-src https://mirror.one.com/ubuntu/ bionic-security main universe
 
-deb https://mirror.one.com/ubuntu/ bionic main
-# deb-src https://mirror.one.com/ubuntu/ bionic main
+deb https://mirror.one.com/ubuntu/ bionic main universe
+# deb-src https://mirror.one.com/ubuntu/ bionic main universe
 
-deb https://mirror.one.com/ubuntu/ bionic-updates main
-# deb-src https://mirror.one.com/ubuntu/ bionic-updates main
+deb https://mirror.one.com/ubuntu/ bionic-updates main universe
+# deb-src https://mirror.one.com/ubuntu/ bionic-updates main universe

@@ -84,12 +84,8 @@ network yet. Boot into the new system, mount the usb and copy the git repository
 from the usb drive
 
 ```sh
-sudo mount /dev/sdb1 /
-sudo mount /dev/sdb3 /mnt -o uid=dahlbaek
-cp -r /mnt/dotfiles "${HOME}/git/dotfiles"
-sudo apt-get update
-sudo apt-get install apt-transport-https
-sudo apt-get upgrade
+mkdir git && cd git
+cp -r /media/dahlbaek/Ubuntu\ 18.04.1\ LTS\ amd641/dotfiles/ .
 ```
 
 ## multiple users
@@ -139,15 +135,30 @@ sudo systemctl start firewall
 sudo systemctl enable firewall
 ```
 
-Add appropriate repositories to `/etc/apt/sources.list` and upgrade the system
+Add appropriate repositories to `/etc/apt/sources.list`
+
+```sh
+sudo cp "${HOME}/git/dotfiles/etc/apt/sources.list" /etc/apt
+```
+
+Then set up the network and upgrade the system
 
 ```sh
 sudo apt-get update
 sudo apt-get upgrade
 ```
 
-Then make sure to get the HTTPS Everywhere and NoScript Security Suite for
-Firefox
+## apparmor and firefox
+
+Install `apparmor-utils` and enable the apparmor firefox profile
+
+```sh
+sudo apt-get install apparmor-utils
+sudo aa-enforce /etc/apparmor.d/usr.bin.firefox
+```
+
+Finally, make sure to get the HTTPS Everywhere and NoScript Security
+Suite for Firefox
 
 ## setup
 
