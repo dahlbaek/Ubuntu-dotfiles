@@ -5,17 +5,17 @@ configs) along with some simple setup instructions for Ubuntu Bionic Beaver.
 
 ## preparation
 
-Prepare a usb drive with dotfiles repository, a hybrid-iso image and non-free
-firmware. First, download the git repository to a `dotfiles` folder
+Prepare a usb drive with dotfiles repository and a hybrid-iso image. First,
+download the git repository to a `dotfiles` folder
 
 ```sh
 git clone https://github.com/dahlbaek/dotfiles.git
 ```
 
-Then, create folders to contain the other files
+Then, create folders to contain the other files hybrid-iso image
 
 ```sh
-mkdir install firmware
+mkdir install
 ```
 
 Next, create a file `links` in `install` which contains links to the install
@@ -61,18 +61,20 @@ folder and run
 sudo cp ubuntu-18.04.1-desktop-amd64.iso /dev/sdb
 ```
 
-Next, use `fdisk` to create an extra ext4 partition (say sdb3) on the usb drive and format it by running
+Next, use `sudo fdisk /dev/sdb` to create an extra ext4 partition (say sdb3) on
+the usb drive and format it afterwards by running
 
 ```sh
-mkfs.ext4 /dev/sdb3
+sudo mkfs.ext4 /dev/sdb3
 ```
 
 then copy the `dotfiles` folder to that partition
 
 ```sh
-sudo mount /dev/sdb3 /mnt -o uid=dahlbaek
-cp -r dotfiles /mnt
-sudo umount /mnt
+sudo mount /dev/sdb3 ~/mnt
+sudo chown dahlbaek:dahlbaek ~/mnt
+cp -r dotfiles ~/mnt
+sudo umount ~/mnt
 ```
 
 ## install ubuntu
