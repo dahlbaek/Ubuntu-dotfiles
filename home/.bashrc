@@ -47,6 +47,10 @@ fi
 GPG_TTY=$(tty)
 export GPG_TTY
 
+# set default editor
+export EDITOR=code
+export GIT_EDITOR=vim.tiny
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/dahlbaek/.sdkman"
 [[ -s "/home/dahlbaek/.sdkman/bin/sdkman-init.sh" ]] && source "/home/dahlbaek/.sdkman/bin/sdkman-init.sh"
