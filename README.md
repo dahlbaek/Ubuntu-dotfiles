@@ -61,8 +61,8 @@ Next, create a bootable usb drive. If the unmounted usb drive is recognized on
 sudo cp ubuntu-18.04.1-desktop-amd64.iso /dev/sdb
 ```
 
-Next, use `sudo fdisk /dev/sdb` to create an extra ext4 partition (say sdb3) on
-the usb drive and format it afterwards by running
+Next, use `sudo fdisk /dev/sdb` to create an extra ext4 partition
+(say sdb3) on the usb drive and format it afterwards by running
 
 ```sh
 sudo mkfs.ext4 /dev/sdb3
