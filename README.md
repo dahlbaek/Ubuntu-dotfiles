@@ -54,8 +54,8 @@ sha256sum -c SHA256SUMS 2>&1 | grep OK
 
 ## bootable usb
 
-Next, create a bootable usb drive. If the unmounted usb drive is recognized on `/dev/sdb`, go to the `install`
-folder and run
+Next, create a bootable usb drive. If the unmounted usb drive is recognized on
+`/dev/sdb`, go to the `install` folder and run
 
 ```sh
 sudo cp ubuntu-18.04.1-desktop-amd64.iso /dev/sdb
@@ -80,8 +80,8 @@ sudo umount ~/mnt
 ## install ubuntu
 
 Simply boot from the usb drive and follow the instructions. Do not set up the
-network yet. Boot into the new system, mount the usb and copy the git repository
-from the usb drive
+network yet. Boot into the new system and copy the git repository from the usb
+drive
 
 ```sh
 mkdir git && cd git
@@ -90,8 +90,14 @@ cp -r /media/dahlbaek/Ubuntu\ 18.04.1\ LTS\ amd641/dotfiles/ .
 
 ## multiple users
 
-If you will be having multiple users on a single machine, consider setting `DIR_MODE=0750`
-in `/etc/adduser.conf`.
+If you will be having multiple users on a single machine, consider setting
+`DIR_MODE=0750` in `/etc/adduser.conf`. Also, change your own home folder to
+that mode
+
+```sh
+cd /home
+chmod 0750 dahlbaek
+```
 
 ## sudoers
 
@@ -144,8 +150,7 @@ sudo cp "${HOME}/git/dotfiles/etc/apt/sources.list" /etc/apt
 Then set up the network and upgrade the system
 
 ```sh
-sudo apt-get update
-sudo apt-get upgrade
+update.sh
 ```
 
 ## apparmor and firefox
@@ -166,4 +171,15 @@ Recursively create symlinks to dotfiles
 
 ```sh
 cp --force --no-dereference --preserve=all --recursive --symbolic-link --verbose -- "${HOME}/git/dotfiles/home/." "${HOME}" >"${HOME}/git/dotfiles/setup.log"
+```
+
+## customization
+
+Install `fish` for a friendly interactive shell experience and
+`gnome-tweak-tool` to be able to easily tweak the gnome desktop. Set `fish` as
+the default shell.
+
+```sh
+sudo apt-get install fish gnome-tweak-tool
+chsh -s "$(which fish)"
 ```
