@@ -183,3 +183,9 @@ the default shell.
 sudo apt-get install fish gnome-tweak-tool
 chsh -s "$(which fish)"
 ```
+
+The tweak tool (accessed as "Tweaks") can be used to
+activate the compose key and set windows to focus on
+mouse-over (sloppy).
+
+Automatic updates can be disabled in "Software and Updates".
