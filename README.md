@@ -170,7 +170,7 @@ Suite for Firefox
 Recursively create symlinks to dotfiles
 
 ```sh
-cp --force --no-dereference --preserve=all --recursive --symbolic-link --verbose -- "${HOME}/git/dotfiles/home/." "${HOME}" >"${HOME}/git/dotfiles/setup.log"
+cp --force --no-dereference --preserve=all --recursive --symbolic-link --verbose -- "${HOME}/git/dotfiles/home/dahlbaek/." "${HOME}" >"${HOME}/git/dotfiles/setup.log"
 ```
 
 ## customization
