@@ -184,7 +184,7 @@ Install `fish` for a friendly interactive shell experience and
 the default shell.
 
 ```sh
-sudo apt-get install fish gnome-tweak-tool
+sudo apt-get install fish gnome-tweak-tool ranger zathura
 chsh -s "$(which fish)"
 ```
 
