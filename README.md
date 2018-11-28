@@ -120,7 +120,9 @@ and change the line
 to
 
 ```
-%sudo	ALL=(ALL:ALL) ALL, NOPASSWD: /usr/bin/apt-get -- update, /usr/bin/apt-get -- upgrade
+%sudo	ALL=(ALL:ALL) ALL,\
+                      NOPASSWD: /usr/bin/apt-get -- update,\
+                      NOPASSWD: /usr/bin/apt-get -- upgrade
 ```
 
 ## iptables and network
