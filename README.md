@@ -36,16 +36,16 @@ xargs -a links -n 1 curl -L -O
 In the `install` folder, verify that `SHA256SUMS` is correctly signed by running
 
 ```sh
-gpg --verify SHA256SUMS.sign SHA256SUMS
+gpg --verify SHA256SUMS.gpg SHA256SUMS
 ```
 
 If the key is unknown, retrieve the key with
 
 ```sh
-gpg --recv-keys DF9B9C49EAA9298432589D76DA87E80D6294BE9B
+gpg --recv-keys 46181433FBB75451
 ```
 
-where DF9B9C49EAA9298432589D76DA87E80D6294BE9B is an example of a key id. Next,
+where 46181433FBB75451 is an example of a key id. Next,
 verify the hash of the iso, by running
 
 ```sh
