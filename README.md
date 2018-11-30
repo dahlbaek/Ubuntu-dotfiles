@@ -6,7 +6,7 @@ configs) along with some simple setup instructions for Ubuntu Bionic Beaver.
 ## preparation
 
 Prepare a usb drive with dotfiles repository and a hybrid-iso image. First,
-download the git repository to a `dotfiles` folder
+download the dotfiles repository to a `dotfiles` folder
 
 ```sh
 git clone https://github.com/dahlbaek/dotfiles.git
@@ -80,11 +80,11 @@ sudo umount ~/mnt
 ## install ubuntu
 
 Simply boot from the usb drive and follow the instructions. Do not set up the
-network yet. Boot into the new system and copy the git repository from the usb
-drive
+network yet. Boot into the new system and copy the dotfiles repository from the
+usb drive
 
 ```sh
-mkdir git && cd git
+mkdir projects && cd projects
 cp -r /media/dahlbaek/Ubuntu\ 18.04.1\ LTS\ amd641/dotfiles/ .
 ```
 
@@ -97,6 +97,12 @@ that mode
 ```sh
 cd /home
 chmod 0750 dahlbaek
+```
+
+## set default editor
+
+```sh
+sudo update-alternatives --config editor
 ```
 
 ## sudoers
@@ -131,14 +137,14 @@ Copy the `enable-firewall.sh` and `disable-firewall.sh` scripts to a secure
 location, using the commands
 
 ```sh
-sudo cp "${HOME}"/git/dotfiles/usr/local/bin/{enable,disable}-firewall.sh /usr/local/bin
+sudo cp "${HOME}"/projects/dotfiles/usr/local/bin/{enable,disable}-firewall.sh /usr/local/bin
 sudo chmod u+x /usr/local/bin/{enable,disable}-firewall.sh
 ```
 
 Next, use `systemd` to start the firewall and enable the firewall at boot
 
 ```sh
-sudo cp "${HOME}/git/dotfiles/etc/systemd/system/firewall.service" /etc/systemd/system
+sudo cp "${HOME}/projects/dotfiles/etc/systemd/system/firewall.service" /etc/systemd/system
 sudo systemctl start firewall
 sudo systemctl enable firewall
 ```
@@ -146,12 +152,14 @@ sudo systemctl enable firewall
 Add appropriate repositories to `/etc/apt/sources.list`
 
 ```sh
-sudo cp "${HOME}/git/dotfiles/etc/apt/sources.list" /etc/apt
+sudo cp "${HOME}/projects/dotfiles/etc/apt/sources.list" /etc/apt
 ```
 
-Then set up the network and upgrade the system
+Then set up the network. Afterwards, recursively create symlinks to dotfiles
+and binaries, then update the system
 
 ```sh
+sh install.sh
 update.sh
 ```
 
@@ -167,16 +175,6 @@ sudo aa-enforce /etc/apparmor.d/usr.bin.firefox
 Finally, make sure to get the HTTPS Everywhere and NoScript Security
 Suite for Firefox
 
-## setup
-
-Recursively create symlinks to dotfiles
-
-```sh
-make
-```
-
-Delete the log by running `make clean`.
-
 ## customization
 
 Install `fish` for a friendly interactive shell experience and
@@ -184,7 +182,7 @@ Install `fish` for a friendly interactive shell experience and
 the default shell.
 
 ```sh
-sudo apt-get install fish gnome-tweak-tool ranger zathura
+sudo apt-get install curl fish git gnome-tweak-tool make ranger zathura
 chsh -s "$(which fish)"
 ```
 
@@ -193,3 +191,4 @@ activate the compose key and set windows to focus on
 mouse-over (sloppy).
 
 Automatic updates can be disabled in "Software and Updates".
+
