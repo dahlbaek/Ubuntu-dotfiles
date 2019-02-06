@@ -5,3 +5,5 @@
 	default = simple
 [rebase]
 	missingCommitsCheck = error
+[pull]
+	rebase = true

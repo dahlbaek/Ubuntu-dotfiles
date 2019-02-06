@@ -31,6 +31,10 @@ iptables -A INPUT -p udp --sport 53 -m conntrack --ctstate ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 iptables -A INPUT -p tcp -m multiport --sports 80,443 -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
+## Allow SSH
+iptables -A OUTPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
 ## Log everything that is dropped
 iptables -A INPUT -j LOG --log-prefix "INPUT:DROP:" --log-level 6
 iptables -A FORWARD -j LOG --log-prefix "FORWARD:DROP:" --log-level 6
