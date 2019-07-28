@@ -5,14 +5,14 @@ configs) along with some simple setup instructions for Ubuntu Bionic Beaver.
 
 ## preparation
 
-Prepare a usb drive with dotfiles repository and a hybrid-iso image. First,
+Prepare a usb drive with the dotfiles repository and a hybrid-iso image. First,
 download the dotfiles repository to a `dotfiles` folder
 
 ```sh
 git clone https://github.com/dahlbaek/dotfiles.git
 ```
 
-Then, create folders to contain the other files hybrid-iso image
+Then, create folders to contain the hybrid-iso image
 
 ```sh
 mkdir install
@@ -137,8 +137,8 @@ Copy the `enable-firewall.sh` and `disable-firewall.sh` scripts to a secure
 location, using the commands
 
 ```sh
-sudo cp "${HOME}"/projects/dotfiles/usr/local/bin/{enable,disable}-firewall.sh /usr/local/bin
-sudo chmod u+x /usr/local/bin/{enable,disable}-firewall.sh
+sudo cp "${HOME}/projects/dotfiles/usr/local/bin/enable-firewall.sh" "${HOME}/projects/dotfiles/usr/local/bin/disable-firewall.sh" /usr/
+sudo chmod u+x /usr/local/bin/enable-firewall.sh /usr/local/bin/disable-firewall.sh
 ```
 
 Next, use `systemd` to start the firewall and enable the firewall at boot
@@ -159,7 +159,7 @@ Then set up the network. Afterwards, recursively create symlinks to dotfiles
 and binaries, then update the system
 
 ```sh
-sh install.sh
+install.sh
 update.sh
 ```
 
@@ -177,13 +177,14 @@ Suite for Firefox
 
 ## customization
 
-Install `fish` for a friendly interactive shell experience and
+Install `zsh` with `oh-my-zsh` for a better shell experience and
 `gnome-tweak-tool` to be able to easily tweak the gnome desktop. Set `fish` as
 the default shell.
 
 ```sh
-sudo apt-get install curl fish git gnome-tweak-tool make ranger zathura
-chsh -s "$(which fish)"
+sudo apt-get install curl make git gnome-tweak-tool ranger zathura zsh
+curl -Lo install-oh-my-zsh.sh https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+sh install-oh-my-zsh.sh
 ```
 
 The tweak tool (accessed as "Tweaks") can be used to
@@ -191,4 +192,3 @@ activate the compose key and set windows to focus on
 mouse-over (sloppy).
 
 Automatic updates can be disabled in "Software and Updates".
-
