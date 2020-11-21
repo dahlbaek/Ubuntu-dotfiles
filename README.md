@@ -137,7 +137,7 @@ Copy the `enable-firewall.sh` and `disable-firewall.sh` scripts to a secure
 location, using the commands
 
 ```sh
-sudo cp "${HOME}/projects/dotfiles/usr/local/bin/enable-firewall.sh" "${HOME}/projects/dotfiles/usr/local/bin/disable-firewall.sh" /usr/
+sudo cp "${HOME}/projects/dotfiles/usr/local/bin/enable-firewall.sh" "${HOME}/projects/dotfiles/usr/local/bin/disable-firewall.sh" /usr/local/bin/
 sudo chmod u+x /usr/local/bin/enable-firewall.sh /usr/local/bin/disable-firewall.sh
 ```
 
