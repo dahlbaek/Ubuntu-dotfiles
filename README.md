@@ -21,7 +21,7 @@ mkdir install
 Next, create a file `links` in `install` which contains links to the install
 files to download. The contents of `links` could look like this:
 
-```
+```text
 https://mirror.one.com/ubuntu-cd/18.04/SHA256SUMS
 https://mirror.one.com/ubuntu-cd/18.04/SHA256SUMS.gpg
 https://mirror.one.com/ubuntu-cd/18.04/ubuntu-18.04.1-desktop-amd64.iso
